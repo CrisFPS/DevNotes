@@ -90,7 +90,13 @@ devnotes-local/
 │
 ├── prompts/                           # prompts utilizados no projeto (didático)
 │
-├── tarefas/                           # Feature, User Story e tarefas (Azure DevOps)
+├── docs/                              # documentação do projeto
+│   ├── features/                      # Features (estilo Azure DevOps)
+│   ├── us/                            # User Stories (estilo Azure DevOps)
+│   ├── tasks/                         # Tarefas técnicas (estilo Azure DevOps)
+│   ├── requisitos/                    # RF, RNF e Regras de Negócio
+│   ├── criterios/                     # Critérios de aceitação do MVP
+│   └── riscos/                        # Registro de riscos
 │
 ├── tests/
 │   ├── __init__.py
@@ -123,7 +129,7 @@ devnotes-local/
 | `frontend/static/` | Arquivos estáticos servidos diretamente: CSS, JS, assets |
 | `uploads/` | Armazena fisicamente os arquivos enviados |
 | `prompts/` | Registro dos prompts usados durante o projeto, com finalidade didática e de versionamento |
-| `tarefas/` | Artefatos simulando Feature, User Story e tarefas no estilo Azure DevOps |
+| `docs/` | Documentação do projeto: requisitos (RF, RNF, RN), critérios de aceitação, riscos e artefatos de gestão em subpastas `features/`, `us/`, `tasks/` |
 | `tests/` | Testes automatizados com pytest |
 
 ### Separação backend/ e frontend/ sem projetos independentes
@@ -336,7 +342,7 @@ O índice FTS5 deve ser atualizado sempre que um conteúdo for criado, editado o
 | **venv** | Isolamento do ambiente Python; evita conflito de dependências |
 | **Separação backend/frontend** | Organiza responsabilidades sem criar dois projetos independentes; melhora a legibilidade |
 | **pasta prompts/** | Registro dos prompts utilizados no projeto; finalidade didática e versionamento do raciocínio com IA |
-| **pasta tarefas/** | Armazena artefatos simulando Feature, User Story e tarefas no estilo Azure DevOps |
+| **pasta docs/** | Documenta requisitos, critérios e riscos; armazena artefatos de gestão (features, user stories, tasks) separados em subpastas |
 | **pytest** | Framework de testes padrão no ecossistema Python; suporte a fixtures, client HTTP e banco em memória |
 
 ---

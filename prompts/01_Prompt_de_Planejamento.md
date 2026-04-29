@@ -84,7 +84,7 @@ A resposta deve conter:
 
 5. Organização inicial do projeto
    - proposta de pastas principais;
-   - explicação sobre o uso das pastas backend/, frontend/, uploads/, prompts/, tarefas/ e tests/.
+   - explicação sobre o uso das pastas backend/, frontend/, uploads/, prompts/, docs/ e tests/.
 
 6. Riscos iniciais
    - riscos técnicos;

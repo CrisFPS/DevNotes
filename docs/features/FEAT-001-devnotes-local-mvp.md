@@ -45,7 +45,7 @@ Centralizar conteúdos técnicos usados em estudo e desenvolvimento de software,
 
 ## User Stories vinculadas
 
-- [US-001 — Gerenciar conteúdos técnicos locais para consulta e reutilização](US-001-gerenciar-conteudos-tecnicos-locais.md)
+- [US-001 — Gerenciar conteúdos técnicos locais para consulta e reutilização](../us/US-001-gerenciar-conteudos-tecnicos-locais.md)
 
 ---
 
@@ -84,4 +84,4 @@ Centralizar conteúdos técnicos usados em estudo e desenvolvimento de software,
 - O projeto deve manter estrutura didática, adequada para estudo de SDLC.
 - As listas e mapeamentos devem ser centralizados em `config.yaml`.
 - A pasta `prompts/` deve armazenar prompts usados durante o desenvolvimento.
-- A pasta `tarefas/` deve armazenar os artefatos simulados de gestão do projeto.
+- A pasta `docs/` deve armazenar os artefatos simulados de gestão do projeto em `docs/features/`, `docs/us/` e `docs/tasks/`, além dos documentos de requisitos, critérios e riscos.

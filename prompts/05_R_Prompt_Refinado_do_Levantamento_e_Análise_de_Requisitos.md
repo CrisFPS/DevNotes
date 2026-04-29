@@ -123,13 +123,13 @@ No MVP, o sistema será pensado para **uso individual e local**.
 | RNF-005 | Preservação de formatação            | O conteúdo visualizado deve preservar quebras de linha, indentação e espaçamento.                    | Obrigatória | Essencial para código, SQL e scripts.                                  |
 | RNF-006 | Compatibilidade com arquivos legados | O sistema deve lidar de forma simples com arquivos textuais legados, especialmente PowerBuilder.     | Obrigatória | Considerar encoding.                                                   |
 | RNF-007 | Tratamento de encoding               | O sistema deve tentar ler arquivos em `utf-8`, depois `latin-1` e depois `cp1252`.                   | Obrigatória | Reduz falhas em arquivos antigos.                                      |
-| RNF-008 | Organização do projeto               | A estrutura de pastas deve ser clara e coerente com o objetivo didático.                             | Obrigatória | `backend/`, `frontend/`, `uploads/`, `prompts/`, `tarefas/`, `tests/`. |
+| RNF-008 | Organização do projeto               | A estrutura de pastas deve ser clara e coerente com o objetivo didático.                             | Obrigatória | `backend/`, `frontend/`, `uploads/`, `prompts/`, `docs/`, `tests/`.   |
 | RNF-009 | Testabilidade                        | O sistema deve permitir testes automatizados com pytest.                                             | Obrigatória | Testar regras principais do MVP.                                       |
 | RNF-010 | Manutenibilidade                     | O código futuro deve ser organizado para facilitar evolução e leitura.                               | Obrigatória | Mesmo sendo MVP, evitar bagunça estrutural.                            |
 | RNF-011 | Configurabilidade                    | Listas de linguagens, sistemas, domínios, extensões e tags devem ser centralizadas em `config.yaml`. | Obrigatória | Evita valores fixos espalhados.                                        |
 | RNF-012 | Segurança local básica               | O sistema deve validar extensão e tamanho de arquivo antes de processar uploads.                     | Obrigatória | Mesmo local, precisa de validações mínimas.                            |
 | RNF-013 | Interface simples                    | A interface deve ser funcional, leve e compreensível, sem sofisticação visual excessiva.             | Obrigatória | HTML e CSS simples.                                                    |
-| RNF-014 | Clareza didática                     | O projeto deve manter artefatos de prompts e tarefas para apoiar aprendizado de SDLC com IA.         | Obrigatória | Pastas `prompts/` e `tarefas/`.                                        |
+| RNF-014 | Clareza didática                     | O projeto deve manter artefatos de prompts e documentação para apoiar aprendizado de SDLC com IA.    | Obrigatória | Pastas `prompts/` e `docs/`.                                           |
 | RNF-015 | Rastreabilidade básica               | O sistema deve manter metadados suficientes para localizar origem e classificação do conteúdo.       | Desejável   | Especialmente em uploads.                                              |
 | RNF-016 | Robustez em erros comuns             | O sistema deve tratar erros simples de upload, leitura e validação sem quebrar a aplicação.          | Desejável   | Pode exibir mensagens amigáveis.                                       |
 
@@ -169,7 +169,7 @@ O MVP poderá ser considerado pronto quando os critérios abaixo forem atendidos
 | ID     | Critério de aceitação                                                                                                         |
 | ------ | ----------------------------------------------------------------------------------------------------------------------------- |
 | CA-001 | A aplicação inicia localmente usando Python 3.11, ambiente virtual `venv` e FastAPI.                                          |
-| CA-002 | A estrutura mínima de pastas existe conforme definido: `backend/`, `frontend/`, `uploads/`, `prompts/`, `tarefas/`, `tests/`. |
+| CA-002 | A estrutura mínima de pastas existe conforme definido: `backend/`, `frontend/`, `uploads/`, `prompts/`, `docs/`, `tests/`.   |
 | CA-003 | O sistema possui banco SQLite configurado.                                                                                    |
 | CA-004 | O sistema utiliza SQLAlchemy para persistência dos dados.                                                                     |
 | CA-005 | O arquivo `config.yaml` centraliza listas e mapeamentos do MVP.                                                               |
@@ -477,7 +477,7 @@ Mesmo no MVP, é recomendável solicitar confirmação antes da exclusão para e
 
 # 10. Artefatos simulando Azure DevOps
 
-> Os artefatos abaixo são apenas propostas em Markdown para futura gravação na pasta `tarefas/`.
+> Os artefatos abaixo são apenas propostas em Markdown para futura gravação em `docs/features/`, `docs/us/` e `docs/tasks/`.
 > Nenhum arquivo real está sendo criado.
 
 ---
@@ -539,7 +539,7 @@ Centralizar conteúdos técnicos usados em estudo e desenvolvimento de software,
 * O projeto deve manter estrutura didática, adequada para estudo de SDLC.
 * As listas e mapeamentos devem ser centralizados em `config.yaml`.
 * A pasta `prompts/` deve armazenar prompts usados durante o desenvolvimento.
-* A pasta `tarefas/` deve armazenar os artefatos simulados de gestão do projeto.
+* A pasta `docs/` deve armazenar os artefatos de documentação e gestão do projeto, em subpastas `features/`, `us/`, `tasks/`, `requisitos/`, `criterios/` e `riscos/`.
 
 ---
 
@@ -638,7 +638,7 @@ Criar a estrutura mínima de diretórios e arquivos do projeto DevNotes Local, r
 * Estrutura contém `frontend/`.
 * Estrutura contém `uploads/`.
 * Estrutura contém `prompts/`.
-* Estrutura contém `tarefas/`.
+* Estrutura contém `docs/` com subpastas `features/`, `us/`, `tasks/`, `requisitos/`, `criterios/` e `riscos/`.
 * Estrutura contém `tests/`.
 * Arquivos base `README.md`, `requirements.txt`, `.gitignore` e `config.yaml` estão previstos.
 
@@ -1212,7 +1212,7 @@ Documentar o objetivo do projeto, escopo do MVP, tecnologias usadas, como execut
 * README explica como executar a aplicação.
 * README lista funcionalidades do MVP.
 * README informa o que está fora do escopo.
-* README cita o uso didático das pastas `prompts/` e `tarefas/`.
+* README cita o uso didático das pastas `prompts/` e `docs/`.
 
 **Dependências:**
 TASK-001, TASK-002, TASK-003.

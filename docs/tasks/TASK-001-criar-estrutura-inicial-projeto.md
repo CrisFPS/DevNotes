@@ -21,8 +21,8 @@ Criar a estrutura mínima de diretórios e arquivos do projeto DevNotes Local, r
 - Estrutura contém `frontend/`.
 - Estrutura contém `uploads/`.
 - Estrutura contém `prompts/`.
-- Estrutura contém `tarefas/`.
 - Estrutura contém `tests/`.
+- Estrutura contém `docs/` com as subpastas: `features/`, `us/`, `tasks/`, `requisitos/`, `criterios/`, `riscos/`.
 - Arquivos base `README.md`, `requirements.txt`, `.gitignore` e `config.yaml` estão previstos.
 
 ---

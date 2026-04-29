@@ -95,7 +95,7 @@ Estrutura mínima esperada do projeto:
 - frontend/
 - uploads/
 - prompts/
-- tarefas/
+- docs/
 - tests/
 - config.yaml
 - requirements.txt
@@ -103,7 +103,7 @@ Estrutura mínima esperada do projeto:
 - .gitignore
 
 A pasta prompts/ deve armazenar os prompts usados durante o desenvolvimento, com finalidade didática, versionamento e refinamento.
-A pasta tarefas/ deve armazenar artefatos simulando itens do Azure DevOps, como Feature, User Story e tarefas.
+A pasta docs/ deve armazenar os artefatos de requisitos, critérios, riscos e work items do projeto: features (docs/features/), user stories (docs/us/) e tarefas técnicas (docs/tasks/).
 
 Escopo fora do MVP:
 - autenticação;
@@ -172,7 +172,7 @@ A resposta deve conter:
 
 10. Artefatos simulando Azure DevOps
 
-Crie, em Markdown, uma proposta de artefatos que futuramente seriam salvos dentro da pasta tarefas/.
+Crie, em Markdown, uma proposta de artefatos que futuramente seriam salvos dentro de docs/features/, docs/us/ e docs/tasks/.
 
 Importante:
 Não crie arquivos reais.

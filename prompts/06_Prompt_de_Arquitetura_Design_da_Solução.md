@@ -35,7 +35,7 @@ devnotes-local/
   frontend/
   uploads/
   prompts/
-  tarefas/
+  docs/
   tests/
   config.yaml
   requirements.txt
@@ -131,7 +131,7 @@ A resposta deve conter:
    - apresente a árvore de diretórios;
    - justifique a responsabilidade de cada diretório;
    - explique a separação backend/ e frontend/ sem tratá-los como projetos independentes;
-   - explique o papel de uploads/, prompts/, tarefas/ e tests/.
+   - explique o papel de uploads/, prompts/, docs/ e tests/.
 
 3. Organização interna sugerida do backend
    - rotas;
@@ -198,7 +198,7 @@ A resposta deve conter:
    - uso de venv;
    - separação física backend/frontend;
    - registro de prompts em prompts/;
-   - registro de artefatos simulados em tarefas/.
+   - registro de artefatos simulados em docs/features/, docs/us/ e docs/tasks/.
 
 9. Riscos técnicos e mitigação
    Inclua:

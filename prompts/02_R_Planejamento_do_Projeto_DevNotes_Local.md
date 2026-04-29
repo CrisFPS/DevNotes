@@ -390,7 +390,13 @@ devnotes-local/
 │
 ├── prompts/
 │
-├── tarefas/
+├── docs/
+│   ├── features/
+│   ├── us/
+│   ├── tasks/
+│   ├── requisitos/
+│   ├── criterios/
+│   └── riscos/
 │
 ├── tests/
 │
@@ -410,7 +416,7 @@ devnotes-local/
 | `frontend/` | Guardar templates Jinja2, arquivos CSS, JavaScript simples e bibliotecas estáticas como Highlight.js. |
 | `uploads/`  | Armazenar arquivos enviados pelo usuário de forma local.                                              |
 | `prompts/`  | Registrar prompts usados no projeto, respostas relevantes da IA e refinamentos importantes.           |
-| `tarefas/`  | Guardar planejamento, backlog, critérios de aceite, anotações de execução e decisões de projeto.      |
+| `docs/`     | Documentação do projeto: requisitos (RF, RNF, RN), critérios de aceitação, riscos e artefatos de gestão em subpastas `features/`, `us/` e `tasks/`. |
 | `tests/`    | Concentrar testes automatizados com pytest.                                                           |
 
 ---
@@ -780,13 +786,13 @@ prompts/
 Além dos prompts, vale manter decisões técnicas na pasta:
 
 ```text
-tarefas/
+docs/
 ```
 
 Ou em uma subpasta específica:
 
 ```text
-tarefas/decisoes/
+docs/tasks/
 ```
 
 ### Exemplos de decisões a registrar

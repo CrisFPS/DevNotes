@@ -34,10 +34,16 @@ e com preservação da formatação original.
 ```
 devnotes-local/
 ├── backend/app/       FastAPI, rotas, serviços, modelos e persistência
+├── docs/              Documentação do projeto (requisitos, riscos, work items)
+│   ├── criterios/     Critérios de aceitação do MVP
+│   ├── features/      Feature(s) do produto (estilo Azure DevOps)
+│   ├── requisitos/    RF, RNF e Regras de Negócio
+│   ├── riscos/        Registro de riscos identificados
+│   ├── tasks/         Tarefas técnicas (estilo Azure DevOps)
+│   └── us/            User Stories (estilo Azure DevOps)
 ├── frontend/          Templates Jinja2, CSS e JavaScript simples
-├── uploads/           Arquivos enviados pelo usuário
 ├── prompts/           Prompts utilizados durante o desenvolvimento (didático)
-├── tarefas/           Feature, User Story e tarefas simulando Azure DevOps
+├── uploads/           Arquivos enviados pelo usuário
 ├── tests/             Testes automatizados com pytest
 ├── config.yaml        Configuração centralizada do MVP
 └── requirements.txt   Dependências do projeto
@@ -109,5 +115,7 @@ pytest
 
 - `prompts/` — armazena os prompts utilizados em cada fase do SDLC, permitindo
   acompanhar o raciocínio, as decisões e o refinamento das solicitações à IA.
-- `tarefas/` — armazena artefatos simulando Feature, User Story e tarefas técnicas
-  no estilo Azure DevOps.
+- `docs/` — armazena toda a documentação do projeto: requisitos funcionais e não
+  funcionais (`requisitos/`), regras de negócio, critérios de aceitação (`criterios/`),
+  registro de riscos (`riscos/`) e artefatos de gestão simulando Azure DevOps:
+  features (`features/`), user stories (`us/`) e tarefas técnicas (`tasks/`).

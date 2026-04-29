@@ -24,7 +24,7 @@ Documentar o objetivo do projeto, escopo do MVP, tecnologias usadas, como execut
 - README explica como executar a aplicação.
 - README lista funcionalidades do MVP.
 - README informa o que está fora do escopo.
-- README cita o uso didático das pastas `prompts/` e `tarefas/`.
+- README cita o uso didático das pastas `prompts/` e `docs/`.
 
 ---
 
