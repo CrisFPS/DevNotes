@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}{% if item %}Editar{% else %}Novo conteúdo{% endif %} — DevNotes Local{% endblock %}
+
+{% block content %}
+<h1>{% if item %}Editar conteúdo{% else %}Novo conteúdo{% endif %}</h1>
+
+<form method="post" action="{% if item %}/content/{{ item.id }}/edit{% else %}/content/new{% endif %}">
+    <div class="form-group">
+        <label for="title">Título *</label>
+        <input type="text" id="title" name="title" required
+               value="{{ item.title if item else '' }}">
+    </div>
+
+    <div class="form-group">
+        <label for="content">Conteúdo</label>
+        <textarea id="content" name="content" rows="16">{{ item.content if item else '' }}</textarea>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label for="category">Categoria</label>
+            <select id="category" name="category">
+                <option value="">— Selecione —</option>
+                {% for cat in config.get('categorias', []) %}
+                <option value="{{ cat }}" {% if item and item.category == cat %}selected{% endif %}>{{ cat }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="language">Linguagem</label>
+            <select id="language" name="language">
+                <option value="">— Selecione —</option>
+                {% for lang in config.get('linguagens', []) %}
+                <option value="{{ lang }}" {% if item and item.language == lang %}selected{% endif %}>{{ lang }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label for="system">Sistema</label>
+            <select id="system" name="system">
+                <option value="">— Selecione —</option>
+                {% for sys in config.get('sistemas', []) %}
+                <option value="{{ sys }}" {% if item and item.system == sys %}selected{% endif %}>{{ sys }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="domain">Domínio</label>
+            <select id="domain" name="domain">
+                <option value="">— Selecione —</option>
+                {% for dom in config.get('dominios', []) %}
+                <option value="{{ dom }}" {% if item and item.domain == dom %}selected{% endif %}>{{ dom }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="tags">Tags (separadas por vírgula)</label>
+        <input type="text" id="tags" name="tags" value="{{ tags_str }}">
+        <small>Sugestões: {{ config.get('tags_pre_cadastradas', []) | join(', ') }}</small>
+    </div>
+
+    <div class="form-group form-check">
+        <input type="checkbox" id="is_business_rule" name="is_business_rule" value="true"
+               {% if item and item.is_business_rule %}checked{% endif %}>
+        <label for="is_business_rule">Marcar como Regra de Negócio</label>
+    </div>
+
+    <div class="form-actions">
+        <button type="submit" class="btn">Salvar</button>
+        <a href="{% if item %}/content/{{ item.id }}{% else %}/content{% endif %}" class="btn btn-secondary">Cancelar</a>
+    </div>
+</form>
+{% endblock %}

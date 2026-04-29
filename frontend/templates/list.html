@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Conteúdos — DevNotes Local{% endblock %}
+
+{% block content %}
+<h1>Conteúdos cadastrados</h1>
+<a href="/content/new" class="btn">+ Novo conteúdo</a>
+
+{% if items %}
+<table>
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Categoria</th>
+            <th>Linguagem</th>
+            <th>Sistema</th>
+            <th>Regra?</th>
+            <th>Atualizado</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <td><a href="/content/{{ item.id }}">{{ item.title }}</a></td>
+            <td>{{ item.category or '—' }}</td>
+            <td>{{ item.language or '—' }}</td>
+            <td>{{ item.system or '—' }}</td>
+            <td>{{ 'Sim' if item.is_business_rule else '—' }}</td>
+            <td>{{ item.updated_at.strftime('%d/%m/%Y') }}</td>
+            <td>
+                <a href="/content/{{ item.id }}/edit">Editar</a>
+                <form method="post" action="/content/{{ item.id }}/delete" style="display:inline"
+                      onsubmit="return confirm('Excluir este conteúdo?')">
+                    <button type="submit" class="btn-link">Excluir</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Nenhum conteúdo cadastrado ainda.</p>
+{% endif %}
+{% endblock %}

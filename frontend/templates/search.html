@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}Pesquisar — DevNotes Local{% endblock %}
+
+{% block content %}
+<h1>Pesquisar conteúdos</h1>
+
+<form method="post" action="/search">
+    <div class="form-group">
+        <label for="query">Texto livre</label>
+        <input type="text" id="query" name="query" value="{{ query }}"
+               placeholder="Pesquise por título, conteúdo, tags...">
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label for="category">Categoria</label>
+            <select id="category" name="category">
+                <option value="">Todas</option>
+                {% for cat in config.get('categorias', []) %}
+                <option value="{{ cat }}" {% if filters.get('category') == cat %}selected{% endif %}>{{ cat }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="language">Linguagem</label>
+            <select id="language" name="language">
+                <option value="">Todas</option>
+                {% for lang in config.get('linguagens', []) %}
+                <option value="{{ lang }}" {% if filters.get('language') == lang %}selected{% endif %}>{{ lang }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="system">Sistema</label>
+            <select id="system" name="system">
+                <option value="">Todos</option>
+                {% for sys in config.get('sistemas', []) %}
+                <option value="{{ sys }}" {% if filters.get('system') == sys %}selected{% endif %}>{{ sys }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="domain">Domínio</label>
+            <select id="domain" name="domain">
+                <option value="">Todos</option>
+                {% for dom in config.get('dominios', []) %}
+                <option value="{{ dom }}" {% if filters.get('domain') == dom %}selected{% endif %}>{{ dom }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group form-check">
+        <input type="checkbox" id="is_business_rule" name="is_business_rule" value="true"
+               {% if filters.get('is_business_rule') %}checked{% endif %}>
+        <label for="is_business_rule">Apenas regras de negócio</label>
+    </div>
+
+    <button type="submit" class="btn">Pesquisar</button>
+</form>
+
+{% if results is not none %}
+    {% if results %}
+    <h2>{{ results | length }} resultado(s)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Categoria</th>
+                <th>Linguagem</th>
+                <th>Sistema</th>
+                <th>Regra?</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in results %}
+            <tr>
+                <td><a href="/content/{{ item.id }}">{{ item.title }}</a></td>
+                <td>{{ item.category or '—' }}</td>
+                <td>{{ item.language or '—' }}</td>
+                <td>{{ item.system or '—' }}</td>
+                <td>{{ 'Sim' if item.is_business_rule else '—' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Nenhum resultado encontrado para os critérios informados.</p>
+    {% endif %}
+{% endif %}
+{% endblock %}

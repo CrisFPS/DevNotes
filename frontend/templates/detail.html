@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}{{ item.title }} — DevNotes Local{% endblock %}
+
+{% block content %}
+<div class="detail-header">
+    <h1>{{ item.title }}</h1>
+    <div class="meta">
+        {% if item.category %}<span class="badge">{{ item.category }}</span>{% endif %}
+        {% if item.language %}<span class="badge">{{ item.language }}</span>{% endif %}
+        {% if item.system %}<span class="badge">{{ item.system }}</span>{% endif %}
+        {% if item.domain %}<span class="badge">{{ item.domain }}</span>{% endif %}
+        {% if item.is_business_rule %}<span class="badge badge-rule">Regra de Negócio</span>{% endif %}
+    </div>
+    {% if tags %}
+    <div class="tags">
+        {% for tag in tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+    </div>
+    {% endif %}
+    <p class="dates">
+        Criado em {{ item.created_at.strftime('%d/%m/%Y %H:%M') }}
+        | Atualizado em {{ item.updated_at.strftime('%d/%m/%Y %H:%M') }}
+    </p>
+</div>
+
+<div class="content-block">
+    <button onclick="copyContent()" class="btn btn-sm">Copiar</button>
+    <pre><code id="content-code" class="{{ item.language | lower if item.language else '' }}">{{ item.content }}</code></pre>
+</div>
+
+{% if item.uploaded_file %}
+<div class="file-info">
+    <strong>Arquivo:</strong> {{ item.uploaded_file.original_name }}
+    ({{ item.uploaded_file.extension }}, {{ (item.uploaded_file.file_size / 1024) | round(1) }} KB,
+    encoding: {{ item.uploaded_file.encoding_used or 'desconhecido' }})
+</div>
+{% endif %}
+
+<div class="detail-actions">
+    <a href="/content/{{ item.id }}/edit" class="btn">Editar</a>
+    <form method="post" action="/content/{{ item.id }}/delete" style="display:inline"
+          onsubmit="return confirm('Excluir este conteúdo?')">
+        <button type="submit" class="btn btn-danger">Excluir</button>
+    </form>
+    <a href="/content" class="btn btn-secondary">← Voltar</a>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => hljs.highlightAll());
+    function copyContent() {
+        const code = document.getElementById('content-code').innerText;
+        navigator.clipboard.writeText(code);
+    }
+</script>
+{% endblock %}

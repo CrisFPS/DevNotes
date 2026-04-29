@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Início — DevNotes Local{% endblock %}
+
+{% block content %}
+<h1>DevNotes Local</h1>
+<p>Repositório pessoal de conteúdos técnicos.</p>
+
+<div class="actions">
+    <a href="/content/new" class="btn">+ Novo conteúdo</a>
+    <a href="/upload" class="btn">↑ Upload de arquivo</a>
+    <a href="/search" class="btn">🔍 Pesquisar</a>
+    <a href="/content" class="btn">☰ Ver todos</a>
+</div>
+
+{% if recent %}
+<h2>Cadastrados recentemente</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Categoria</th>
+            <th>Linguagem</th>
+            <th>Atualizado</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in recent %}
+        <tr>
+            <td><a href="/content/{{ item.id }}">{{ item.title }}</a></td>
+            <td>{{ item.category or '—' }}</td>
+            <td>{{ item.language or '—' }}</td>
+            <td>{{ item.updated_at.strftime('%d/%m/%Y') }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endblock %}

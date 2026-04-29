@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}DevNotes Local{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="brand">DevNotes Local</a>
+            <ul>
+                <li><a href="/content">Listar</a></li>
+                <li><a href="/content/new">Novo</a></li>
+                <li><a href="/upload">Upload</a></li>
+                <li><a href="/search">Pesquisar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>DevNotes Local — uso pessoal e didático</p>
+    </footer>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

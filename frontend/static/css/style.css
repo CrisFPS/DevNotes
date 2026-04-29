@@ -1,0 +1,118 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #222;
+    background: #f8f8f8;
+}
+
+/* ── Navegação ── */
+header { background: #1a1a2e; color: #fff; padding: 0.6rem 1.5rem; }
+nav { display: flex; align-items: center; gap: 2rem; }
+nav .brand { color: #e0e0ff; font-weight: 700; font-size: 1.1rem; text-decoration: none; }
+nav ul { list-style: none; display: flex; gap: 1.2rem; }
+nav ul a { color: #ccc; text-decoration: none; font-size: 0.9rem; }
+nav ul a:hover { color: #fff; }
+
+/* ── Main ── */
+main { max-width: 960px; margin: 2rem auto; padding: 0 1.5rem; }
+h1 { font-size: 1.6rem; margin-bottom: 1rem; }
+h2 { font-size: 1.2rem; margin: 1.5rem 0 0.8rem; }
+
+/* ── Footer ── */
+footer { text-align: center; padding: 1.5rem; color: #888; font-size: 0.82rem; margin-top: 3rem; }
+
+/* ── Botões ── */
+.btn {
+    display: inline-block;
+    padding: 0.45rem 1rem;
+    background: #1a1a2e;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 0.88rem;
+    margin-right: 0.4rem;
+    margin-bottom: 0.4rem;
+}
+.btn:hover { background: #2e2e5e; }
+.btn-secondary { background: #666; }
+.btn-secondary:hover { background: #444; }
+.btn-danger { background: #c0392b; }
+.btn-danger:hover { background: #a93226; }
+.btn-sm { padding: 0.25rem 0.6rem; font-size: 0.8rem; }
+.btn-link { background: none; color: #c0392b; border: none; cursor: pointer; font-size: 0.88rem; padding: 0; }
+
+/* ── Atalhos da home ── */
+.actions { margin: 1.5rem 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+/* ── Tabelas ── */
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; background: #fff; border-radius: 6px; overflow: hidden; }
+th { background: #1a1a2e; color: #fff; padding: 0.6rem 0.8rem; text-align: left; font-size: 0.85rem; }
+td { padding: 0.55rem 0.8rem; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #f0f0ff; }
+td a { color: #1a1a2e; font-weight: 600; }
+
+/* ── Formulários ── */
+.form-group { margin-bottom: 1rem; }
+.form-group label { display: block; font-weight: 600; font-size: 0.88rem; margin-bottom: 0.25rem; }
+.form-group input[type="text"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.5rem 0.7rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.92rem;
+    font-family: inherit;
+    background: #fff;
+}
+.form-group textarea { resize: vertical; font-family: "Cascadia Code", "Fira Code", monospace; }
+.form-group small { color: #888; font-size: 0.8rem; display: block; margin-top: 0.2rem; }
+.form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+.form-check { display: flex; align-items: center; gap: 0.5rem; }
+.form-check input[type="checkbox"] { width: auto; }
+.form-check label { font-weight: normal; margin-bottom: 0; }
+.form-actions { margin-top: 1.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+/* ── Detalhe ── */
+.detail-header { margin-bottom: 1.2rem; }
+.meta { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.5rem 0; }
+.badge {
+    display: inline-block;
+    padding: 0.15rem 0.55rem;
+    background: #e8e8f0;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    color: #333;
+}
+.badge-rule { background: #fdecea; color: #c0392b; font-weight: 700; }
+.tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin: 0.4rem 0; }
+.tag { background: #d0e8ff; color: #1a5276; padding: 0.1rem 0.5rem; border-radius: 12px; font-size: 0.78rem; }
+.dates { color: #888; font-size: 0.82rem; margin-top: 0.4rem; }
+
+.content-block { margin: 1.2rem 0; position: relative; }
+.content-block pre {
+    background: #1e1e2e;
+    color: #cdd6f4;
+    padding: 1.2rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    max-height: 75vh;
+    overflow-y: auto;
+    white-space: pre;
+}
+.content-block pre code { background: transparent; padding: 0; font-size: inherit; }
+
+.file-info { font-size: 0.85rem; color: #666; margin: 0.8rem 0; }
+.detail-actions { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+/* ── Alertas ── */
+.alert { padding: 0.8rem 1rem; border-radius: 4px; margin-bottom: 1rem; font-size: 0.9rem; }
+.alert-error { background: #fdecea; color: #922b21; border: 1px solid #f5b7b1; }
