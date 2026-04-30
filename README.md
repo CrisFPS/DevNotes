@@ -44,6 +44,12 @@ devnotes-local/
 │   ├── requisitos/       RF, RNF e Regras de Negócio
 │   ├── riscos/           Registro de riscos identificados
 │   ├── tasks/            Tarefas técnicas (estilo Azure DevOps)
+│   ├── testes/           Documentação completa de testes (SDLC)
+│   │   ├── estrategia/   Pirâmide, objetivos e padrões
+│   │   ├── plano/        Plano de testes formal
+│   │   ├── casos/        Casos de teste por módulo
+│   │   ├── rastreabilidade/ Matriz RF ↔ TC
+│   │   └── relatorios/   Histórico de execuções
 │   └── us/               User Stories (estilo Azure DevOps)
 ├── frontend/             Templates Jinja2, CSS e JavaScript simples
 ├── prompts/              Prompts utilizados durante o desenvolvimento (didático)
@@ -91,9 +97,34 @@ Acesse: http://localhost:8000
 
 ## Como rodar os testes
 
+Os testes usam SQLite in-memory — nenhum dado é gravado no banco real do projeto.
+
 ```bash
-pytest
+# Todos os testes
+./venv/Scripts/pytest.exe -v
+
+# Com detalhes de falha
+./venv/Scripts/pytest.exe -v --tb=short
+
+# Apenas um arquivo
+./venv/Scripts/pytest.exe tests/test_routes.py -v
+
+# Apenas um teste específico
+./venv/Scripts/pytest.exe tests/test_routes.py::test_edit_content_via_route -v
 ```
+
+**Suite atual:** 48 testes | 6 arquivos | cobertura dos módulos de serviço e rotas HTTP.
+
+### Documentação de testes
+
+| Documento | Descrição |
+|-----------|-----------|
+| [docs/testes/estrategia/TE-estrategia-de-testes.md](docs/testes/estrategia/TE-estrategia-de-testes.md) | Pirâmide de testes (diagrama Mermaid), objetivos e padrões |
+| [docs/testes/plano/TP-plano-de-testes.md](docs/testes/plano/TP-plano-de-testes.md) | Plano formal com critérios de entrada e saída |
+| [docs/testes/casos/](docs/testes/casos/) | Casos de teste canônicos por módulo |
+| [docs/testes/rastreabilidade/RTM-matriz-rastreabilidade.md](docs/testes/rastreabilidade/RTM-matriz-rastreabilidade.md) | Rastreabilidade RF ↔ TC |
+| [docs/testes/relatorios/TR-relatorio-execucao.md](docs/testes/relatorios/TR-relatorio-execucao.md) | Histórico de execuções |
+| [docs/testes/COMO-EXECUTAR-TESTES.md](docs/testes/COMO-EXECUTAR-TESTES.md) | Guia completo de execução |
 
 ---
 
