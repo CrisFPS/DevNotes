@@ -1,8 +1,12 @@
-from datetime import datetime
+from datetime import UTC, datetime
 from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import relationship
 
 from backend.app.database import Base
+
+
+def _now() -> datetime:
+    return datetime.now(UTC)
 
 
 class Content(Base):
@@ -17,8 +21,8 @@ class Content(Base):
     domain = Column(String)
     object_type = Column(String)
     is_business_rule = Column(Boolean, default=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = Column(DateTime, default=_now)
+    updated_at = Column(DateTime, default=_now, onupdate=_now)
 
     tags = relationship("ContentTag", back_populates="content", cascade="all, delete-orphan")
     uploaded_file = relationship("UploadedFile", back_populates="content", uselist=False, cascade="all, delete-orphan")
@@ -56,6 +60,6 @@ class UploadedFile(Base):
     object_type = Column(String)
     file_size = Column(Integer)
     encoding_used = Column(String)
-    uploaded_at = Column(DateTime, default=datetime.utcnow)
+    uploaded_at = Column(DateTime, default=_now)
 
     content = relationship("Content", back_populates="uploaded_file")

@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import UTC, datetime
 
 from sqlalchemy.orm import Session
 
@@ -30,7 +30,7 @@ class ContentService:
         tags = data.pop("tags", [])
         for key, value in data.items():
             setattr(content, key, value)
-        content.updated_at = datetime.utcnow()
+        content.updated_at = datetime.now(UTC)
         content = self.repo.update(content)
         self.repo.set_tags(content, tags)
         self.repo._update_fts(content)

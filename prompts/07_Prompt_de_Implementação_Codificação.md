@@ -6,6 +6,8 @@ Quero dar continuidade à implementação do projeto DevNotes Local.
 
 A arquitetura da aplicação foi definida no prompt `06_Prompt_de_Arquitetura_Design_da_Solução.md` e está documentada formalmente em `docs/arquitetura/`. Toda a implementação deve estar alinhada com esses artefatos. O arquivo `prompts/06_R_Arquitetura_Design_da_Solução.md` é mantido como registro histórico da interação com a IA, mas **não é a fonte de verdade da arquitetura** — os documentos em `docs/arquitetura/` são.
 
+> **Implementação real:** Crie os arquivos diretamente no projeto e execute os comandos necessários. Não descreva o código em blocos Markdown — implemente.
+
 ---
 
 ## Documentação arquitetural de referência
@@ -270,9 +272,9 @@ tags_pre_cadastradas:
 
 ### Etapa 0 — Verificação e análise de gaps (obrigatória antes de implementar)
 
-Antes de gerar qualquer código:
+Antes de iniciar qualquer implementação, inspecione o projeto:
 
-1. Leia e descreva brevemente o código-fonte já existente no projeto, se houver.
+1. Liste a estrutura de arquivos existente e leia os arquivos relevantes.
 2. Compare o estado atual com a estrutura esperada definida neste prompt e nos artefatos em `docs/arquitetura/` (especialmente `visao-geral.md` seções 2–3 e `diagramas.md` diagrama 11.3 de Componentes).
 3. Liste o que já está implementado, o que está faltando e o que diverge da arquitetura.
 4. Apresente um plano resumido do que será implementado ou corrigido nesta sessão.
@@ -336,16 +338,15 @@ Conduza a implementação de forma incremental, segura e didática, seguindo est
 
 ---
 
-## Formato da resposta
+## Execução e verificação
 
-- Use Markdown.
-- Inicie com a **Etapa 0** (verificação e análise de gaps).
-- Mostre a árvore de pastas resultante.
-- Para cada arquivo criado ou modificado, informe o caminho completo e o conteúdo completo e funcional.
-- Separe bem cada etapa com títulos claros.
-- Explique brevemente as decisões mais importantes.
-- Ao final, informe como executar a aplicação localmente.
-- Ao final, informe como rodar os testes.
+- Crie os arquivos diretamente no projeto — não descreva o código, implemente.
+- Após criar cada arquivo, confirme brevemente o que foi feito (caminho e propósito).
+- Inicie sempre pela **Etapa 0** (verificação de gaps).
+- Separe cada etapa com títulos claros.
+- Explique brevemente as decisões mais importantes ao longo da implementação.
+- Ao concluir a Etapa 1, execute `pytest tests/` para verificar os testes.
+- Verifique se a aplicação inicializa sem erros com `uvicorn backend.app.main:app --reload`.
 - Ao final, liste limitações conhecidas da versão gerada.
 
 ---
@@ -353,7 +354,8 @@ Conduza a implementação de forma incremental, segura e didática, seguindo est
 ## Importante
 
 - Implemente de forma incremental.
-- Se a resposta ficar grande, priorize uma primeira versão mínima funcional, deixando melhorias para etapas seguintes.
+- Se o escopo for muito grande, priorize uma primeira versão mínima funcional, deixando melhorias para etapas seguintes.
 - Em caso de divergência entre o código existente e a arquitetura estabelecida, sinalize e corrija, justificando brevemente a decisão.
 - Não altere o escopo funcional do MVP.
 - Não proponha tecnologias fora do conjunto obrigatório.
+- Não substitua implementação por descrição em Markdown — crie os arquivos de verdade.

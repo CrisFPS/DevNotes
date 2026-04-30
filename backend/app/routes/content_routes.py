@@ -15,7 +15,7 @@ templates = Jinja2Templates(directory="frontend/templates")
 def index(request: Request, db: Session = Depends(get_db)):
     svc = ContentService(db)
     recent = svc.list_all()[:5]
-    return templates.TemplateResponse("index.html", {"request": request, "recent": recent})
+    return templates.TemplateResponse(request, "index.html", {"recent": recent})
 
 
 @router.get("/content")
@@ -24,13 +24,12 @@ def list_content(request: Request, db: Session = Depends(get_db)):
     items = svc.list_all()
     for item in items:
         item._tags = svc.get_tags(item.id)
-    return templates.TemplateResponse("list.html", {"request": request, "items": items})
+    return templates.TemplateResponse(request, "list.html", {"items": items})
 
 
 @router.get("/content/new")
 def new_form(request: Request):
-    return templates.TemplateResponse("form.html", {
-        "request": request,
+    return templates.TemplateResponse(request, "form.html", {
         "item": None,
         "config": config,
         "tags_str": "",
@@ -70,10 +69,9 @@ def detail(content_id: int, request: Request, db: Session = Depends(get_db)):
     svc = ContentService(db)
     item = svc.get(content_id)
     if not item:
-        return templates.TemplateResponse("404.html", {"request": request}, status_code=404)
+        return templates.TemplateResponse(request, "404.html", status_code=404)
     tags = svc.get_tags(content_id)
-    return templates.TemplateResponse("detail.html", {
-        "request": request,
+    return templates.TemplateResponse(request, "detail.html", {
         "item": item,
         "tags": tags,
     })
@@ -86,8 +84,7 @@ def edit_form(content_id: int, request: Request, db: Session = Depends(get_db)):
     if not item:
         return RedirectResponse("/content", status_code=303)
     tags = svc.get_tags(content_id)
-    return templates.TemplateResponse("form.html", {
-        "request": request,
+    return templates.TemplateResponse(request, "form.html", {
         "item": item,
         "config": config,
         "tags_str": ", ".join(tags),

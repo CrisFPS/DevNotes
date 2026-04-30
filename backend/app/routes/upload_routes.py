@@ -14,8 +14,7 @@ templates = Jinja2Templates(directory="frontend/templates")
 
 @router.get("/upload")
 def upload_form(request: Request):
-    return templates.TemplateResponse("upload.html", {
-        "request": request,
+    return templates.TemplateResponse(request, "upload.html", {
         "config": config,
         "error": None,
     })
@@ -36,8 +35,7 @@ async def process_upload(
     try:
         file_meta = await save_upload(file)
     except Exception as exc:
-        return templates.TemplateResponse("upload.html", {
-            "request": request,
+        return templates.TemplateResponse(request, "upload.html", {
             "config": config,
             "error": str(exc),
         }, status_code=400)

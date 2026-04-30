@@ -23,6 +23,12 @@ def test_upload_form_returns_200(client):
     assert response.status_code == 200
 
 
+def test_detail_nonexistent_returns_404(client):
+    response = client.get("/content/99999")
+    assert response.status_code == 404
+    assert "não encontrado" in response.text.lower()
+
+
 def test_create_and_view(client):
     response = client.post("/content/new", data={
         "title": "Teste via rota",

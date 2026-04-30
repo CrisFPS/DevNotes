@@ -13,8 +13,7 @@ templates = Jinja2Templates(directory="frontend/templates")
 
 @router.get("/search")
 def search_form(request: Request):
-    return templates.TemplateResponse("search.html", {
-        "request": request,
+    return templates.TemplateResponse(request, "search.html", {
         "config": config,
         "results": None,
         "query": "",
@@ -51,8 +50,7 @@ def do_search(
     for item in results:
         item._tags = svc_content.get_tags(item.id)
 
-    return templates.TemplateResponse("search.html", {
-        "request": request,
+    return templates.TemplateResponse(request, "search.html", {
         "config": config,
         "results": results,
         "query": query,
