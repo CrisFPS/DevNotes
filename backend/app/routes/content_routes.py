@@ -110,28 +110,16 @@ def update_content(
     if not item:
         return RedirectResponse("/content", status_code=303)
     tag_list = [t.strip() for t in tags.split(",") if t.strip()]
-    try:
-        svc.update(item, {
-            "title": title,
-            "content": content,
-            "category": category,
-            "language": language,
-            "system": system,
-            "domain": domain,
-            "is_business_rule": is_business_rule,
-            "tags": tag_list,
-        })
-    except Exception:
-        db.rollback()
-        return templates.TemplateResponse(
-            request,
-            "error.html",
-            {
-                "message": "Não foi possível salvar as alterações. Tente novamente.",
-                "back_url": f"/content/{content_id}/edit",
-            },
-            status_code=500,
-        )
+    svc.update(item, {
+        "title": title,
+        "content": content,
+        "category": category,
+        "language": language,
+        "system": system,
+        "domain": domain,
+        "is_business_rule": is_business_rule,
+        "tags": tag_list,
+    })
     return RedirectResponse(f"/content/{content_id}", status_code=303)
 
 

@@ -113,8 +113,11 @@ class ContentRepository:
         self.db.commit()
 
     def _update_fts(self, content: Content) -> None:
-        self._delete_fts(content.id)
-        self._index_fts(content)
+        try:
+            self._delete_fts(content.id)
+            self._index_fts(content)
+        except Exception:
+            self.db.rollback()
 
     def _delete_fts(self, content_id: int) -> None:
         self.db.execute(
