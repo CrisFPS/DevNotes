@@ -4,7 +4,25 @@ Atue como desenvolvedor Python sênior, especialista em FastAPI, SQLite, SQLAlch
 
 Quero dar continuidade à implementação do projeto DevNotes Local.
 
-A arquitetura da aplicação foi definida no prompt `06_Prompt_de_Arquitetura_Design_da_Solução.md` e o resultado completo está documentado em `06_R_Arquitetura_Design_da_Solução.md`. Toda a implementação deve estar alinhada com as decisões arquiteturais já estabelecidas nesse documento.
+A arquitetura da aplicação foi definida no prompt `06_Prompt_de_Arquitetura_Design_da_Solução.md` e está documentada formalmente em `docs/arquitetura/`. Toda a implementação deve estar alinhada com esses artefatos. O arquivo `prompts/06_R_Arquitetura_Design_da_Solução.md` é mantido como registro histórico da interação com a IA, mas **não é a fonte de verdade da arquitetura** — os documentos em `docs/arquitetura/` são.
+
+---
+
+## Documentação arquitetural de referência
+
+Antes de implementar qualquer componente, leia os artefatos abaixo. Eles são a fonte de verdade da arquitetura e devem ser seguidos durante toda a implementação.
+
+| Documento | O que contém |
+|---|---|
+| `docs/arquitetura/visao-geral.md` | Visão geral, estrutura de pastas, organização do backend e frontend, entidades SQLite, rotas, templates, decisões e riscos |
+| `docs/arquitetura/diagramas.md` | 7 diagramas Mermaid: Contexto (C1), Containers (C2), Componentes (C3), Fluxo do usuário, Fluxo de upload, ER e Sequência de upload |
+| `docs/arquitetura/adr/ADR-001-fastapi-jinja2.md` | Decisão: usar FastAPI + Jinja2 (sem SPA, sem frontend separado) |
+| `docs/arquitetura/adr/ADR-002-sqlite-fts5.md` | Decisão: usar SQLite + FTS5 como banco de dados |
+| `docs/arquitetura/adr/ADR-003-sqlalchemy-orm.md` | Decisão: usar SQLAlchemy como ORM com camada de repositórios |
+| `docs/arquitetura/adr/ADR-004-separacao-backend-frontend.md` | Decisão: separação física backend/frontend sem dois projetos independentes |
+| `docs/arquitetura/adr/ADR-005-config-yaml.md` | Decisão: centralizar listas e mapeamentos em config.yaml |
+
+> Qualquer divergência detectada entre o código existente e esses documentos deve ser sinalizada e corrigida na **Etapa 0** antes de prosseguir com a implementação.
 
 ---
 
@@ -92,6 +110,15 @@ devnotes-local/
 ├── uploads/
 │   └── .gitkeep
 ├── docs/
+│   ├── arquitetura/
+│   │   ├── visao-geral.md         # visão geral, estrutura, entidades, rotas, decisões e riscos
+│   │   ├── diagramas.md           # 7 diagramas Mermaid
+│   │   └── adr/                   # Architecture Decision Records
+│   │       ├── ADR-001-fastapi-jinja2.md
+│   │       ├── ADR-002-sqlite-fts5.md
+│   │       ├── ADR-003-sqlalchemy-orm.md
+│   │       ├── ADR-004-separacao-backend-frontend.md
+│   │       └── ADR-005-config-yaml.md
 ├── prompts/
 ├── config.yaml
 ├── requirements.txt
@@ -103,14 +130,18 @@ devnotes-local/
 
 ## Decisão arquitetural
 
-- Separar fisicamente `backend/` e `frontend/`, mas manter a aplicação como um único projeto local.
-- O `backend/` deve conter FastAPI, rotas, serviços, modelos, repositórios, schemas Pydantic e regras da aplicação.
-- O `frontend/` deve conter templates Jinja2, CSS e JavaScript simples.
-- O ponto de entrada é `backend/app/main.py`.
-- A configuração do SQLite e SQLAlchemy deve estar em `backend/app/database.py`.
-- A leitura do `config.yaml` deve estar em `backend/app/config.py`.
-- O acesso a dados (CRUD e FTS5) deve estar em `repositories/content_repository.py`.
-- O encoding de arquivos deve estar em um serviço separado: `services/encoding_service.py`.
+As decisões arquiteturais estão formalizadas nos ADRs em `docs/arquitetura/adr/`. Resumo das principais:
+
+- Separar fisicamente `backend/` e `frontend/`, mas manter como único projeto → ver **ADR-004**
+- Usar FastAPI + Jinja2 para renderização server-side (sem SPA) → ver **ADR-001**
+- Usar SQLite + FTS5 como banco de dados → ver **ADR-002**
+- Usar SQLAlchemy como ORM com camada de repositórios → ver **ADR-003**
+- Centralizar sistemas, domínios, linguagens e mapeamentos em `config.yaml` → ver **ADR-005**
+- O ponto de entrada é `backend/app/main.py`
+- A configuração do SQLite e SQLAlchemy deve estar em `backend/app/database.py`
+- A leitura do `config.yaml` deve estar em `backend/app/config.py`
+- O acesso a dados (CRUD e FTS5) deve estar em `repositories/content_repository.py`
+- O encoding de arquivos deve estar em um serviço separado: `services/encoding_service.py`
 
 ---
 
@@ -242,7 +273,7 @@ tags_pre_cadastradas:
 Antes de gerar qualquer código:
 
 1. Leia e descreva brevemente o código-fonte já existente no projeto, se houver.
-2. Compare o estado atual com a estrutura esperada definida neste prompt e na arquitetura (`06_R_Arquitetura_Design_da_Solução.md`).
+2. Compare o estado atual com a estrutura esperada definida neste prompt e nos artefatos em `docs/arquitetura/` (especialmente `visao-geral.md` seções 2–3 e `diagramas.md` diagrama 11.3 de Componentes).
 3. Liste o que já está implementado, o que está faltando e o que diverge da arquitetura.
 4. Apresente um plano resumido do que será implementado ou corrigido nesta sessão.
 

@@ -33,21 +33,33 @@ e com preservação da formatação original.
 
 ```
 devnotes-local/
-├── backend/app/       FastAPI, rotas, serviços, modelos e persistência
-├── docs/              Documentação do projeto (requisitos, riscos, work items)
-│   ├── criterios/     Critérios de aceitação do MVP
-│   ├── features/      Feature(s) do produto (estilo Azure DevOps)
-│   ├── requisitos/    RF, RNF e Regras de Negócio
-│   ├── riscos/        Registro de riscos identificados
-│   ├── tasks/         Tarefas técnicas (estilo Azure DevOps)
-│   └── us/            User Stories (estilo Azure DevOps)
-├── frontend/          Templates Jinja2, CSS e JavaScript simples
-├── prompts/           Prompts utilizados durante o desenvolvimento (didático)
-├── uploads/           Arquivos enviados pelo usuário
-├── tests/             Testes automatizados com pytest
-├── config.yaml        Configuração centralizada do MVP
-└── requirements.txt   Dependências do projeto
+├── backend/app/          FastAPI, rotas, serviços, modelos e persistência
+├── docs/                 Documentação do projeto
+│   ├── arquitetura/      Arquitetura da solução e diagramas
+│   │   ├── visao-geral.md
+│   │   ├── diagramas.md  Todos os diagramas Mermaid (C1, C2, C3, fluxos, ER, sequência)
+│   │   └── adr/          Architecture Decision Records
+│   ├── criterios/        Critérios de aceitação do MVP
+│   ├── features/         Feature(s) do produto (estilo Azure DevOps)
+│   ├── requisitos/       RF, RNF e Regras de Negócio
+│   ├── riscos/           Registro de riscos identificados
+│   ├── tasks/            Tarefas técnicas (estilo Azure DevOps)
+│   └── us/               User Stories (estilo Azure DevOps)
+├── frontend/             Templates Jinja2, CSS e JavaScript simples
+├── prompts/              Prompts utilizados durante o desenvolvimento (didático)
+├── uploads/              Arquivos enviados pelo usuário
+├── tests/                Testes automatizados com pytest
+├── config.yaml           Configuração centralizada do MVP
+└── requirements.txt      Dependências do projeto
 ```
+
+### Documentação arquitetural
+
+| Documento | Descrição |
+|---|---|
+| [docs/arquitetura/visao-geral.md](docs/arquitetura/visao-geral.md) | Visão geral, estrutura, entidades, rotas, decisões e riscos |
+| [docs/arquitetura/diagramas.md](docs/arquitetura/diagramas.md) | Todos os diagramas Mermaid da solução |
+| [docs/arquitetura/adr/](docs/arquitetura/adr/) | Architecture Decision Records (ADRs) |
 
 ---
 
