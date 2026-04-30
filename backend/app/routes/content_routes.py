@@ -124,9 +124,17 @@ def update_content(
 
 
 @router.post("/content/{content_id}/delete")
-def delete_content(content_id: int, db: Session = Depends(get_db)):
+def delete_content(request: Request, content_id: int, db: Session = Depends(get_db)):
     svc = ContentService(db)
     item = svc.get(content_id)
-    if item:
+    if not item:
+        return RedirectResponse("/content", status_code=303)
+    try:
         svc.delete(item)
+    except Exception:
+        db.rollback()
+        return templates.TemplateResponse(request, "error.html", {
+            "message": "Não foi possível excluir o conteúdo. Tente novamente.",
+            "back_url": f"/content/{content_id}",
+        }, status_code=500)
     return RedirectResponse("/content", status_code=303)

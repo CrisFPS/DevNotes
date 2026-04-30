@@ -29,8 +29,28 @@ def create_tables():
 
 def _create_fts_table():
     with engine.connect() as conn:
-        conn.execute(text("""
-            CREATE VIRTUAL TABLE IF NOT EXISTS content_fts
-            USING fts5(title, content, category, language, system, domain, tags)
-        """))
+        row = conn.execute(
+            text("SELECT sql FROM sqlite_master WHERE name = 'content_fts'")
+        ).fetchone()
+
+        needs_rebuild = row is None or "content=" in (row[0] or "")
+
+        if needs_rebuild:
+            conn.execute(text("DROP TABLE IF EXISTS content_fts"))
+            conn.execute(text("""
+                CREATE VIRTUAL TABLE content_fts
+                USING fts5(title, content, category, language, system, domain, tags)
+            """))
+            # Reindexar registros existentes
+            conn.execute(text("""
+                INSERT INTO content_fts(rowid, title, content, category, language, system, domain, tags)
+                SELECT c.id, c.title, c.content, c.category, c.language, c.system, c.domain,
+                       COALESCE((
+                           SELECT GROUP_CONCAT(t.name, ' ')
+                           FROM tag t
+                           JOIN content_tag ct ON ct.tag_id = t.id
+                           WHERE ct.content_id = c.id
+                       ), '')
+                FROM content c
+            """))
         conn.commit()
