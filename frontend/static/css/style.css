@@ -97,8 +97,9 @@ td a { color: #1a1a2e; font-weight: 600; }
 
 .content-block { margin: 1.2rem 0; position: relative; }
 .content-block pre {
-    background: #1e1e2e;
-    color: #cdd6f4;
+    background: #f5f5f5;
+    color: #2d2d2d;
+    border: 1px solid #e0e0e0;
     padding: 1.2rem;
     border-radius: 6px;
     overflow-x: auto;
