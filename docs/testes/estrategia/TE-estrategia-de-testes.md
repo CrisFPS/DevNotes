@@ -33,10 +33,10 @@ Verificar que o template `detail.html` contém a estrutura `<pre><code` ao exibi
 
 ```mermaid
 graph BT
-    A["🔹 Unitários puros (21 testes)\nvalidate_extension · classify · read_file_content\nSem banco · Sem fixture db"]
-    B["🔸 Integração com banco (9 testes)\nContentService · SearchService · attach_file · FTS5\nFixture db — SQLite in-memory"]
-    C["🔶 Rotas GET (5 testes)\nGET / · /content · /content/new · /search · /upload\nFixture client — status HTTP"]
-    D["🔺 Rotas POST + Renderização (13 testes)\nPOST create · edit · delete · upload · search\nVerificação de HTML e redirecionamentos"]
+    A["🔹 Unitários puros (21 testes)<br/>validate_extension · classify · read_file_content<br/>Sem banco · Sem fixture db"]
+    B["🔸 Integração com banco (9 testes)<br/>ContentService · SearchService · attach_file · FTS5<br/>Fixture db — SQLite in-memory"]
+    C["🔶 Rotas GET (5 testes)<br/>GET / · /content · /content/new · /search · /upload<br/>Fixture client — status HTTP"]
+    D["🔺 Rotas POST + Renderização (13 testes)<br/>POST create · edit · delete · upload · search<br/>Verificação de HTML e redirecionamentos"]
 
     A --> B --> C --> D
 
