@@ -93,6 +93,7 @@ def edit_form(content_id: int, request: Request, db: Session = Depends(get_db)):
 
 @router.post("/content/{content_id}/edit")
 def update_content(
+    request: Request,
     content_id: int,
     title: str = Form(...),
     content: str = Form(""),
@@ -109,16 +110,28 @@ def update_content(
     if not item:
         return RedirectResponse("/content", status_code=303)
     tag_list = [t.strip() for t in tags.split(",") if t.strip()]
-    svc.update(item, {
-        "title": title,
-        "content": content,
-        "category": category,
-        "language": language,
-        "system": system,
-        "domain": domain,
-        "is_business_rule": is_business_rule,
-        "tags": tag_list,
-    })
+    try:
+        svc.update(item, {
+            "title": title,
+            "content": content,
+            "category": category,
+            "language": language,
+            "system": system,
+            "domain": domain,
+            "is_business_rule": is_business_rule,
+            "tags": tag_list,
+        })
+    except Exception:
+        db.rollback()
+        return templates.TemplateResponse(
+            request,
+            "error.html",
+            {
+                "message": "Não foi possível salvar as alterações. Tente novamente.",
+                "back_url": f"/content/{content_id}/edit",
+            },
+            status_code=500,
+        )
     return RedirectResponse(f"/content/{content_id}", status_code=303)
 
 

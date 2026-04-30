@@ -25,7 +25,6 @@ class ContentRepository:
     def update(self, content: Content) -> Content:
         self.db.commit()
         self.db.refresh(content)
-        self._update_fts(content)
         return content
 
     def delete(self, content: Content) -> None:
