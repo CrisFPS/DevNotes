@@ -1,16 +1,19 @@
 sistemas:
-  - Protheus
-  - Sistema Atendimento
+  - Sistema Administrativo
+  - Sistema CarPayroll
   - Sistema Financeiro
-  - Sistema Telemarketing
-  - Sistema Nova Reserva
+  - Sistema Just&Py
+  - Sistema Calypso
+  - Sistema DeVNotes
+  - Sistema LogBem
+  - Sistema RH
 
 dominios:
+  - Administrativo
   - Contábil
-  - Protheus
-  - Título
-  - Reserva
+  - Logistica
   - Financeiro
+  - Recursos Humanos
   - Técnico
 
 linguagens:
