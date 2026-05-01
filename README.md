@@ -69,6 +69,20 @@ devnotes-local/
 
 ---
 
+## Pré-requisitos
+
+Antes de executar o projeto, é necessário ter instalado:
+
+- Python 3.11
+- Git
+- pip, normalmente incluído na instalação do Python
+- venv, normalmente incluído na instalação do Python
+- Navegador web para acessar a aplicação local
+
+Não é necessário instalar Docker, Node.js ou PostgreSQL, pois o projeto usa FastAPI com templates Jinja2 e banco SQLite local.
+
+---
+
 ## Como configurar o ambiente
 
 ```bash
