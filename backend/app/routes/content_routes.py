@@ -29,11 +29,15 @@ def list_content(request: Request, db: Session = Depends(get_db)):
 
 @router.get("/content/new")
 def new_form(request: Request):
-    return templates.TemplateResponse(request, "form.html", {
-        "item": None,
-        "config": config,
-        "tags_str": "",
-    })
+    return templates.TemplateResponse(
+        request,
+        "form.html",
+        {
+            "item": None,
+            "config": config,
+            "tags_str": "",
+        },
+    )
 
 
 @router.post("/content/new")
@@ -51,16 +55,18 @@ def create_content(
 ):
     svc = ContentService(db)
     tag_list = [t.strip() for t in tags.split(",") if t.strip()]
-    new_item = svc.create({
-        "title": title,
-        "content": content,
-        "category": category,
-        "language": language,
-        "system": system,
-        "domain": domain,
-        "is_business_rule": is_business_rule,
-        "tags": tag_list,
-    })
+    new_item = svc.create(
+        {
+            "title": title,
+            "content": content,
+            "category": category,
+            "language": language,
+            "system": system,
+            "domain": domain,
+            "is_business_rule": is_business_rule,
+            "tags": tag_list,
+        }
+    )
     return RedirectResponse(f"/content/{new_item.id}", status_code=303)
 
 
@@ -71,10 +77,14 @@ def detail(content_id: int, request: Request, db: Session = Depends(get_db)):
     if not item:
         return templates.TemplateResponse(request, "404.html", status_code=404)
     tags = svc.get_tags(content_id)
-    return templates.TemplateResponse(request, "detail.html", {
-        "item": item,
-        "tags": tags,
-    })
+    return templates.TemplateResponse(
+        request,
+        "detail.html",
+        {
+            "item": item,
+            "tags": tags,
+        },
+    )
 
 
 @router.get("/content/{content_id}/edit")
@@ -84,11 +94,15 @@ def edit_form(content_id: int, request: Request, db: Session = Depends(get_db)):
     if not item:
         return RedirectResponse("/content", status_code=303)
     tags = svc.get_tags(content_id)
-    return templates.TemplateResponse(request, "form.html", {
-        "item": item,
-        "config": config,
-        "tags_str": ", ".join(tags),
-    })
+    return templates.TemplateResponse(
+        request,
+        "form.html",
+        {
+            "item": item,
+            "config": config,
+            "tags_str": ", ".join(tags),
+        },
+    )
 
 
 @router.post("/content/{content_id}/edit")
@@ -110,16 +124,19 @@ def update_content(
     if not item:
         return RedirectResponse("/content", status_code=303)
     tag_list = [t.strip() for t in tags.split(",") if t.strip()]
-    svc.update(item, {
-        "title": title,
-        "content": content,
-        "category": category,
-        "language": language,
-        "system": system,
-        "domain": domain,
-        "is_business_rule": is_business_rule,
-        "tags": tag_list,
-    })
+    svc.update(
+        item,
+        {
+            "title": title,
+            "content": content,
+            "category": category,
+            "language": language,
+            "system": system,
+            "domain": domain,
+            "is_business_rule": is_business_rule,
+            "tags": tag_list,
+        },
+    )
     return RedirectResponse(f"/content/{content_id}", status_code=303)
 
 
@@ -133,8 +150,13 @@ def delete_content(request: Request, content_id: int, db: Session = Depends(get_
         svc.delete(item)
     except Exception:
         db.rollback()
-        return templates.TemplateResponse(request, "error.html", {
-            "message": "Não foi possível excluir o conteúdo. Tente novamente.",
-            "back_url": f"/content/{content_id}",
-        }, status_code=500)
+        return templates.TemplateResponse(
+            request,
+            "error.html",
+            {
+                "message": "Não foi possível excluir o conteúdo. Tente novamente.",
+                "back_url": f"/content/{content_id}",
+            },
+            status_code=500,
+        )
     return RedirectResponse("/content", status_code=303)

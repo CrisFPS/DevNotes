@@ -40,16 +40,20 @@ def test_detail_nonexistent_returns_404(client):
 
 def test_create_and_view(client):
     """TC-RTE-07 | Rota | POST /content/new deve criar conteúdo e redirecionar para detalhe."""
-    response = client.post("/content/new", data={
-        "title": "Teste via rota",
-        "content": "SELECT 1",
-        "category": "SQL",
-        "language": "SQL",
-        "system": "",
-        "domain": "",
-        "tags": "",
-        "is_business_rule": "",
-    }, follow_redirects=True)
+    response = client.post(
+        "/content/new",
+        data={
+            "title": "Teste via rota",
+            "content": "SELECT 1",
+            "category": "SQL",
+            "language": "SQL",
+            "system": "",
+            "domain": "",
+            "tags": "",
+            "is_business_rule": "",
+        },
+        follow_redirects=True,
+    )
     assert response.status_code == 200
     assert "Teste via rota" in response.text
 
@@ -58,16 +62,20 @@ def test_edit_content_via_route(client, db):
     """TC-CNT-06 | Rota | Editar conteúdo via POST /content/{id}/edit."""
     svc = ContentService(db)
     item = svc.create({"title": "Original", "content": "texto", "tags": []})
-    response = client.post(f"/content/{item.id}/edit", data={
-        "title": "Editado",
-        "content": "novo texto",
-        "category": "",
-        "language": "",
-        "system": "",
-        "domain": "",
-        "tags": "",
-        "is_business_rule": "",
-    }, follow_redirects=True)
+    response = client.post(
+        f"/content/{item.id}/edit",
+        data={
+            "title": "Editado",
+            "content": "novo texto",
+            "category": "",
+            "language": "",
+            "system": "",
+            "domain": "",
+            "tags": "",
+            "is_business_rule": "",
+        },
+        follow_redirects=True,
+    )
     assert response.status_code == 200
     assert "Editado" in response.text
 
@@ -86,12 +94,14 @@ def test_delete_content_via_route(client, db):
 def test_detail_renders_pre_code_block(client, db):
     """TC-RND-01 | Rota | Template detail.html deve conter bloco <pre><code>."""
     svc = ContentService(db)
-    item = svc.create({
-        "title": "Código SQL",
-        "content": "SELECT * FROM clientes",
-        "language": "SQL",
-        "tags": [],
-    })
+    item = svc.create(
+        {
+            "title": "Código SQL",
+            "content": "SELECT * FROM clientes",
+            "language": "SQL",
+            "tags": [],
+        }
+    )
     response = client.get(f"/content/{item.id}")
     assert response.status_code == 200
     assert "<pre><code" in response.text
@@ -110,14 +120,19 @@ def test_detail_renders_title(client, db):
 def test_search_route_returns_results(client, db):
     """TC-SCH-04 | Rota | POST /search deve retornar HTML com título do resultado."""
     svc = ContentService(db)
-    svc.create({"title": "Procedure contábil", "content": "EXEC sp_contabil", "tags": []})
-    response = client.post("/search", data={
-        "query": "contábil",
-        "category": "",
-        "language": "",
-        "system": "",
-        "domain": "",
-    })
+    svc.create(
+        {"title": "Procedure contábil", "content": "EXEC sp_contabil", "tags": []}
+    )
+    response = client.post(
+        "/search",
+        data={
+            "query": "contábil",
+            "category": "",
+            "language": "",
+            "system": "",
+            "domain": "",
+        },
+    )
     assert response.status_code == 200
     assert "Procedure contábil" in response.text
 

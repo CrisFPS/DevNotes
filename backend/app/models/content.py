@@ -24,8 +24,15 @@ class Content(Base):
     created_at = Column(DateTime, default=_now)
     updated_at = Column(DateTime, default=_now, onupdate=_now)
 
-    tags = relationship("ContentTag", back_populates="content", cascade="all, delete-orphan")
-    uploaded_file = relationship("UploadedFile", back_populates="content", uselist=False, cascade="all, delete-orphan")
+    tags = relationship(
+        "ContentTag", back_populates="content", cascade="all, delete-orphan"
+    )
+    uploaded_file = relationship(
+        "UploadedFile",
+        back_populates="content",
+        uselist=False,
+        cascade="all, delete-orphan",
+    )
 
 
 class Tag(Base):

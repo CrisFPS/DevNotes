@@ -96,6 +96,8 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+O arquivo `requirements.txt` é a fonte principal de dependências do projeto.
+
 ---
 
 ## Como executar
@@ -106,6 +108,12 @@ uvicorn backend.app.main:app --reload --port 8000
 ```
 
 Acesse: http://localhost:8000
+
+Também é possível usar:
+
+```bash
+make run
+```
 
 ---
 
@@ -125,6 +133,26 @@ Os testes usam SQLite in-memory — nenhum dado é gravado no banco real do proj
 
 # Apenas um teste específico
 ./venv/Scripts/pytest.exe tests/test_routes.py::test_edit_content_via_route -v
+```
+
+Também é possível usar:
+
+```bash
+make test
+```
+
+---
+
+## Comandos de manutenção
+
+Os comandos abaixo exigem GNU Make instalado no ambiente.
+
+```bash
+# Formatar código Python com Black
+make format
+
+# Remover caches e arquivos temporários
+make clean
 ```
 
 **Suite atual:** 61 testes | 7 arquivos | cobertura dos módulos de serviço, rotas HTTP e operações de exclusão.

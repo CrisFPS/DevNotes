@@ -23,6 +23,7 @@ def get_db():
 
 def create_tables():
     from backend.app.models import content  # noqa: F401 — registra os modelos
+
     Base.metadata.create_all(bind=engine)
     _create_fts_table()
 
@@ -37,12 +38,18 @@ def _create_fts_table():
 
         if needs_rebuild:
             conn.execute(text("DROP TABLE IF EXISTS content_fts"))
-            conn.execute(text("""
+            conn.execute(
+                text(
+                    """
                 CREATE VIRTUAL TABLE content_fts
                 USING fts5(title, content, category, language, system, domain, tags)
-            """))
+            """
+                )
+            )
             # Reindexar registros existentes
-            conn.execute(text("""
+            conn.execute(
+                text(
+                    """
                 INSERT INTO content_fts(rowid, title, content, category, language, system, domain, tags)
                 SELECT c.id, c.title, c.content, c.category, c.language, c.system, c.domain,
                        COALESCE((
@@ -52,5 +59,7 @@ def _create_fts_table():
                            WHERE ct.content_id = c.id
                        ), '')
                 FROM content c
-            """))
+            """
+                )
+            )
         conn.commit()

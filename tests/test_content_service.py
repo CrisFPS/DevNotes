@@ -5,16 +5,18 @@ from backend.app.models.content import UploadedFile
 def test_create_content(db):
     """TC-CNT-01 | Integração | Verificar criação de conteúdo com campos obrigatórios e tags."""
     svc = ContentService(db)
-    item = svc.create({
-        "title": "Teste de cadastro",
-        "content": "SELECT 1",
-        "category": "SQL",
-        "language": "SQL",
-        "system": "",
-        "domain": "",
-        "is_business_rule": False,
-        "tags": ["sql", "teste"],
-    })
+    item = svc.create(
+        {
+            "title": "Teste de cadastro",
+            "content": "SELECT 1",
+            "category": "SQL",
+            "language": "SQL",
+            "system": "",
+            "domain": "",
+            "is_business_rule": False,
+            "tags": ["sql", "teste"],
+        }
+    )
     assert item.id is not None
     assert item.title == "Teste de cadastro"
 
@@ -32,7 +34,9 @@ def test_update_content(db):
     """TC-CNT-03 | Integração | Verificar atualização de título e conteúdo via ContentService."""
     svc = ContentService(db)
     item = svc.create({"title": "Original", "content": "texto", "tags": []})
-    updated = svc.update(item, {"title": "Atualizado", "content": "novo texto", "tags": []})
+    updated = svc.update(
+        item, {"title": "Atualizado", "content": "novo texto", "tags": []}
+    )
     assert updated.title == "Atualizado"
 
 
@@ -48,12 +52,14 @@ def test_delete_content(db):
 def test_business_rule_flag(db):
     """TC-CNT-05 | Integração | Verificar flag is_business_rule=True persiste no banco."""
     svc = ContentService(db)
-    item = svc.create({
-        "title": "Regra contábil",
-        "content": "Regra de negócio X",
-        "is_business_rule": True,
-        "tags": [],
-    })
+    item = svc.create(
+        {
+            "title": "Regra contábil",
+            "content": "Regra de negócio X",
+            "is_business_rule": True,
+            "tags": [],
+        }
+    )
     assert item.is_business_rule is True
 
 

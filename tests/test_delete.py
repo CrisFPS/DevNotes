@@ -1,4 +1,5 @@
 """Suite de testes para a funcionalidade de exclusão de conteúdo."""
+
 import pytest
 from unittest.mock import patch, MagicMock
 from sqlalchemy import text
@@ -12,9 +13,12 @@ from backend.app.models.content import Content, ContentTag, UploadedFile
 # Helpers
 # ---------------------------------------------------------------------------
 
+
 def _create(db, title="Conteúdo teste", content="SELECT 1", tags=None, **kwargs):
     svc = ContentService(db)
-    return svc.create({"title": title, "content": content, "tags": tags or [], **kwargs})
+    return svc.create(
+        {"title": title, "content": content, "tags": tags or [], **kwargs}
+    )
 
 
 def _fts_count(db, content_id: int) -> int:
@@ -28,6 +32,7 @@ def _fts_count(db, content_id: int) -> int:
 # ---------------------------------------------------------------------------
 # TC-DEL-01  Serviço | Exclusão remove o registro do banco
 # ---------------------------------------------------------------------------
+
 
 def test_delete_removes_from_db(db):
     """TC-DEL-01 | Serviço | Exclusão deve remover o registro de Content do banco."""
@@ -44,6 +49,7 @@ def test_delete_removes_from_db(db):
 # ---------------------------------------------------------------------------
 # TC-DEL-02  Serviço | Listagem não retorna item excluído
 # ---------------------------------------------------------------------------
+
 
 def test_delete_item_absent_from_list(db):
     """TC-DEL-02 | Serviço | list_all() não deve retornar conteúdo após exclusão."""
@@ -62,6 +68,7 @@ def test_delete_item_absent_from_list(db):
 # TC-DEL-03  Serviço | Exclusão em cascata remove tags associadas
 # ---------------------------------------------------------------------------
 
+
 def test_delete_cascades_to_tags(db):
     """TC-DEL-03 | Serviço | Exclusão deve remover em cascata as tags associadas."""
     item = _create(db, tags=["python", "sql"])
@@ -78,21 +85,25 @@ def test_delete_cascades_to_tags(db):
 # TC-DEL-04  Serviço | Exclusão em cascata remove arquivo anexado
 # ---------------------------------------------------------------------------
 
+
 def test_delete_cascades_to_uploaded_file(db):
     """TC-DEL-04 | Serviço | Exclusão deve remover em cascata o UploadedFile associado."""
     svc = ContentService(db)
     item = _create(db)
-    svc.attach_file(item.id, {
-        "original_name": "arq.sql",
-        "saved_name": "xyz.sql",
-        "local_path": "/uploads/xyz.sql",
-        "extension": ".sql",
-        "file_type": "SQL",
-        "object_type": "SQL",
-        "language": "SQL",
-        "file_size": 512,
-        "encoding_used": "utf-8",
-    })
+    svc.attach_file(
+        item.id,
+        {
+            "original_name": "arq.sql",
+            "saved_name": "xyz.sql",
+            "local_path": "/uploads/xyz.sql",
+            "extension": ".sql",
+            "file_type": "SQL",
+            "object_type": "SQL",
+            "language": "SQL",
+            "file_size": 512,
+            "encoding_used": "utf-8",
+        },
+    )
 
     svc.delete(item)
 
@@ -103,6 +114,7 @@ def test_delete_cascades_to_uploaded_file(db):
 # ---------------------------------------------------------------------------
 # TC-DEL-05  Repositório | Exclusão limpa o índice FTS5
 # ---------------------------------------------------------------------------
+
 
 def test_delete_clears_fts_index(db):
     """TC-DEL-05 | Repositório | Exclusão deve remover a entrada correspondente do índice FTS5."""
@@ -121,6 +133,7 @@ def test_delete_clears_fts_index(db):
 # TC-DEL-06  Repositório | Exclusão de ID inexistente no FTS não levanta exceção
 # ---------------------------------------------------------------------------
 
+
 def test_delete_fts_nonexistent_id_is_silent(db):
     """TC-DEL-06 | Repositório | _delete_fts com ID inexistente não deve levantar exceção."""
     repo = ContentRepository(db)
@@ -132,14 +145,16 @@ def test_delete_fts_nonexistent_id_is_silent(db):
 # TC-DEL-07  Rota | DELETE via POST retorna redirect 303 para /content
 # ---------------------------------------------------------------------------
 
+
 def test_delete_route_redirects_to_list(client, db):
     """TC-DEL-07 | Rota | POST /content/{id}/delete deve redirecionar para /content (303)."""
     item = _create(db)
     response = client.post(f"/content/{item.id}/delete")
     assert response.status_code in (200, 303)
     # follow_redirects=False → verifica redirect diretamente
-    no_follow = client.post(f"/content/{_create(db, title='X2').id}/delete",
-                            follow_redirects=False)
+    no_follow = client.post(
+        f"/content/{_create(db, title='X2').id}/delete", follow_redirects=False
+    )
     assert no_follow.status_code == 303
     assert no_follow.headers["location"] in ("/content", "http://testserver/content")
 
@@ -147,6 +162,7 @@ def test_delete_route_redirects_to_list(client, db):
 # ---------------------------------------------------------------------------
 # TC-DEL-08  Rota | Item excluído não aparece na listagem HTML
 # ---------------------------------------------------------------------------
+
 
 def test_delete_route_item_removed_from_html_list(client, db):
     """TC-DEL-08 | Rota | Após exclusão via rota, título não deve aparecer em GET /content."""
@@ -161,6 +177,7 @@ def test_delete_route_item_removed_from_html_list(client, db):
 # TC-DEL-09  Rota | DELETE de ID inexistente redireciona sem erro
 # ---------------------------------------------------------------------------
 
+
 def test_delete_nonexistent_id_redirects(client):
     """TC-DEL-09 | Rota | POST /content/99999/delete com ID inexistente deve redirecionar (303)."""
     response = client.post("/content/99999/delete", follow_redirects=False)
@@ -171,6 +188,7 @@ def test_delete_nonexistent_id_redirects(client):
 # ---------------------------------------------------------------------------
 # TC-DEL-10  Rota | Falha no serviço retorna erro 500 com mensagem amigável
 # ---------------------------------------------------------------------------
+
 
 def test_delete_service_failure_returns_500(client, db):
     """TC-DEL-10 | Rota | Exceção no serviço deve retornar HTTP 500 com mensagem amigável."""
@@ -190,6 +208,7 @@ def test_delete_service_failure_returns_500(client, db):
 # TC-DEL-11  Rota | Exclusão a partir da página de detalhe
 # ---------------------------------------------------------------------------
 
+
 def test_delete_from_detail_page_redirects_to_list(client, db):
     """TC-DEL-11 | Rota | Exclusão disparada pela página de detalhe redireciona para lista."""
     item = _create(db, title="DetalheDelete")
@@ -201,6 +220,7 @@ def test_delete_from_detail_page_redirects_to_list(client, db):
 # ---------------------------------------------------------------------------
 # TC-DEL-12  Serviço | Múltiplas exclusões independentes não afetam outros registros
 # ---------------------------------------------------------------------------
+
 
 def test_delete_multiple_items_independently(db):
     """TC-DEL-12 | Serviço | Excluir múltiplos itens não deve afetar os registros restantes."""
@@ -222,6 +242,7 @@ def test_delete_multiple_items_independently(db):
 # ---------------------------------------------------------------------------
 # TC-DEL-13  Repositório | get() retorna None após exclusão
 # ---------------------------------------------------------------------------
+
 
 def test_get_returns_none_after_delete(db):
     """TC-DEL-13 | Repositório | svc.get(id) deve retornar None após exclusão."""

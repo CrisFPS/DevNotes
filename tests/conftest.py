@@ -20,12 +20,17 @@ TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engin
 
 def _setup_test_db():
     from backend.app.models import content  # noqa: F401 — registra os modelos
+
     Base.metadata.create_all(bind=engine_test)
     with engine_test.connect() as conn:
-        conn.execute(text("""
+        conn.execute(
+            text(
+                """
             CREATE VIRTUAL TABLE IF NOT EXISTS content_fts
             USING fts5(title, content, category, language, system, domain, tags)
-        """))
+        """
+            )
+        )
         conn.commit()
 
 
@@ -115,5 +120,6 @@ def make_upload_file(filename: str, content: bytes) -> MagicMock:
 def upload_dir(tmp_path, monkeypatch):
     """Redireciona UPLOADS_DIR para diretório temporário durante o teste."""
     import backend.app.services.upload_service as us
+
     monkeypatch.setattr(us, "UPLOADS_DIR", tmp_path)
     return tmp_path

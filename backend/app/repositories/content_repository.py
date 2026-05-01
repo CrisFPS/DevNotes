@@ -66,7 +66,9 @@ class ContentRepository:
     def search_fts(self, query: str, filters: dict) -> list[Content]:
         if query:
             rows = self.db.execute(
-                text("SELECT rowid FROM content_fts WHERE content_fts MATCH :q ORDER BY rank"),
+                text(
+                    "SELECT rowid FROM content_fts WHERE content_fts MATCH :q ORDER BY rank"
+                ),
                 {"q": query},
             ).fetchall()
             ids = [r[0] for r in rows]
@@ -95,10 +97,12 @@ class ContentRepository:
     def _index_fts(self, content: Content) -> None:
         tags_str = self._tags_as_string(content.id)
         self.db.execute(
-            text("""
+            text(
+                """
                 INSERT INTO content_fts(rowid, title, content, category, language, system, domain, tags)
                 VALUES (:id, :title, :body, :category, :language, :system, :domain, :tags)
-            """),
+            """
+            ),
             {
                 "id": content.id,
                 "title": content.title or "",
