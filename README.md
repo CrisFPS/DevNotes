@@ -127,7 +127,17 @@ Os testes usam SQLite in-memory — nenhum dado é gravado no banco real do proj
 ./venv/Scripts/pytest.exe tests/test_routes.py::test_edit_content_via_route -v
 ```
 
-**Suite atual:** 48 testes | 6 arquivos | cobertura dos módulos de serviço e rotas HTTP.
+**Suite atual:** 61 testes | 7 arquivos | cobertura dos módulos de serviço, rotas HTTP e operações de exclusão.
+
+| Arquivo | Testes |
+|---|---|
+| `test_routes.py` | 13 |
+| `test_delete.py` | 13 |
+| `test_extension_classifier.py` | 12 |
+| `test_upload_service.py` | 7 |
+| `test_content_service.py` | 6 |
+| `test_search_fts.py` | 6 |
+| `test_encoding_service.py` | 4 |
 
 ### Documentação de testes
 
