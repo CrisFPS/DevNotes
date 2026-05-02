@@ -45,7 +45,7 @@ Relaciona cada Requisito Funcional (RF) com os Casos de Teste (TC) que o cobrem.
 | RF-020 | Marcar como regra de negócio | TC-CNT-05 | TC-SCH-05 (indireto) | Boa |
 | RF-021 | Tipo PowerBuilder por extensão | TC-CLS-03, TC-CLS-04, TC-CLS-05, TC-CLS-06, TC-UPL-03 | TC-CLS-10, TC-CLS-11, TC-CLS-12 | Completa |
 | RF-022 | config.yaml | — | — | Manual |
-| RF-023 | Listar conteúdos | TC-CNT-02, TC-RTE-01, TC-RTE-02 | — | Boa |
+| RF-023 | Listar conteúdos | TC-CNT-02, TC-RTE-01, TC-RTE-02 | TC-RTE-08, TC-RTE-09, TC-RTE-10, TC-RTE-11, TC-RTE-12 | Completa |
 | RF-024 | Exibir detalhes | TC-RTE-07 | TC-RND-02 | Boa |
 | RF-025 | Registrar metadados de upload | — | TC-UPF-01 | Boa |
 | RF-026 | Tags pré-cadastradas | — | — | Manual |
@@ -71,8 +71,8 @@ Relaciona cada Requisito Funcional (RF) com os Casos de Teste (TC) que o cobrem.
 
 | Cobertura | Quantidade de RFs |
 |-----------|------------------|
-| Completa | 2 |
-| Boa | 17 |
+| Completa | 3 |
+| Boa | 16 |
 | Parcial | 7 |
 | Manual | 3 |
 | Não coberto | 1 |

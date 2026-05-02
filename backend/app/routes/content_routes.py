@@ -19,12 +19,20 @@ def index(request: Request, db: Session = Depends(get_db)):
 
 
 @router.get("/content")
-def list_content(request: Request, db: Session = Depends(get_db)):
+def list_content(request: Request, page: int = 1, db: Session = Depends(get_db)):
     svc = ContentService(db)
-    items = svc.list_all()
+    pagination = svc.list_page(page)
+    items = pagination["items"]
     for item in items:
         item._tags = svc.get_tags(item.id)
-    return templates.TemplateResponse(request, "list.html", {"items": items})
+    return templates.TemplateResponse(
+        request,
+        "list.html",
+        {
+            "items": items,
+            "pagination": pagination,
+        },
+    )
 
 
 @router.get("/content/new")

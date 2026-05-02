@@ -29,6 +29,42 @@ Preencher após cada execução de `pytest`. Adicionar nova seção ao topo a ca
 
 ---
 
+## Execução 3 — 2026-05-02 (implementação da paginação)
+
+| Campo | Valor |
+|-------|-------|
+| **Data de execução** | 2026-05-02 |
+| **Versão do sistema** | MVP 1.0 - TASK-023 concluída |
+| **Branch / commit** | main |
+| **Comando executado** | `./venv/Scripts/python.exe -m pytest -q -p no:cacheprovider` |
+| **Total de testes** | 66 |
+| **Passou** | 66 |
+| **Falhou** | 0 |
+| **Bloqueado / Skipped** | 0 |
+| **% Cobertura estimada** | — |
+| **Duração** | 0,72s |
+| **Observações** | Execução completa feita fora do sandbox para permitir acesso ao diretório temporário do Windows usado por fixtures de upload. Inclui os novos testes TC-RTE-08 a TC-RTE-12 da paginação. |
+
+---
+
+## Execução 2 — 2026-05-02 (documentação da paginação)
+
+| Campo | Valor |
+|-------|-------|
+| **Data de execução** | 2026-05-02 |
+| **Versão do sistema** | MVP 1.0 - manutenção evolutiva planejada |
+| **Branch / commit** | main |
+| **Comando executado** | Validação documental por inspeção e `rg "TASK-023|TC-RTE-08|TC-RTE-09|TC-RTE-10|TC-RTE-11|TC-RTE-12|RF-023" docs` |
+| **Total de testes** | Não executado nesta etapa |
+| **Passou** | Não aplicável |
+| **Falhou** | Não aplicável |
+| **Bloqueado / Skipped** | Não aplicável |
+| **% Cobertura estimada** | — |
+| **Duração** | — |
+| **Observações** | Rodada documental da TASK-023. A execução automatizada de pytest fica para a etapa de implementação da paginação e dos testes planejados. |
+
+---
+
 ## Execução 1 — 2026-04-30 (implementação inicial)
 
 | Campo | Valor |

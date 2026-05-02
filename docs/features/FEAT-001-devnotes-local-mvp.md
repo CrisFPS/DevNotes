@@ -75,6 +75,7 @@ Centralizar conteúdos técnicos usados em estudo e desenvolvimento de software,
 | TASK-020 | Integrar Highlight.js                    |
 | TASK-021 | Criar testes com pytest                  |
 | TASK-022 | Criar documentação básica no README.md   |
+| TASK-023 | Implementar paginação na listagem de conteúdos |
 
 ---
 

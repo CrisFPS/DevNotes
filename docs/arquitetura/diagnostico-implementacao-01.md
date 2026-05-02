@@ -83,7 +83,7 @@ Apesar de não violarem os ADRs nem a `visao-geral.md`, três usos de APIs depre
 As limitações abaixo são intencionais para manter o escopo do MVP. Estão documentadas para orientar evoluções futuras.
 
 1. **Sem tratamento explícito de upload concorrente.** A coleção UUID evita colisão de nome do arquivo salvo em disco, mas não há controle de lock no SQLite. Aceitável para uso pessoal/local.
-2. **Sem paginação na listagem.** A rota `/content` retorna todos os registros; aceitável para o volume previsto no escopo.
+2. **Paginação na listagem resolvida.** A limitação anterior de `/content` retornar todos os registros foi tratada pela TASK-023, vinculada ao RF-023, com paginação funcional e testes automatizados.
 3. **Sem migração de schema.** `create_tables()` apenas cria o que ainda não existe; alterações no modelo exigem dropar manualmente `backend/devnotes.db`.
 4. **Highlight.js carregado via CDN.** Exige internet no primeiro acesso à página de detalhe. Decisão coerente com a simplicidade do MVP, alinhada ao ADR-001.
 5. **Cobertura de testes parcial no upload.** O pipeline end-to-end (validação + classificação + persistência) não é testado de ponta a ponta; apenas `validate_extension` é testado isoladamente.

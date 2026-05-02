@@ -12,6 +12,18 @@ class ContentRepository:
     def get_all(self) -> list[Content]:
         return self.db.query(Content).order_by(Content.updated_at.desc()).all()
 
+    def count_all(self) -> int:
+        return self.db.query(Content).count()
+
+    def get_page(self, limit: int, offset: int) -> list[Content]:
+        return (
+            self.db.query(Content)
+            .order_by(Content.updated_at.desc())
+            .offset(offset)
+            .limit(limit)
+            .all()
+        )
+
     def get_by_id(self, content_id: int) -> Content | None:
         return self.db.query(Content).filter(Content.id == content_id).first()
 

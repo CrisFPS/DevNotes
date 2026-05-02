@@ -195,3 +195,108 @@ Arquivo de testes: `tests/test_routes.py`
 | **Prioridade** | Média |
 
 **Docstring:** `"""TC-RND-02 | Rota | Template detail.html deve exibir o título do conteúdo."""`
+
+---
+
+## TC-RTE-08 — GET /content lista a primeira pagina paginada *(novo)*
+
+| Campo | Valor |
+|-------|-------|
+| **ID** | TC-RTE-08 |
+| **Titulo** | GET /content lista a primeira pagina paginada |
+| **Modulo** | `backend/app/routes/content_routes.py` + `frontend/templates/list.html` |
+| **Requisito** | RF-023 |
+| **Pre-condicao** | Banco com mais de 20 conteudos cadastrados |
+| **Passos** | 1. Criar massa com mais de 20 conteudos. 2. GET `/content` |
+| **Entrada** | Sem query string |
+| **Resultado Esperado** | `status_code == 200`, apenas a primeira pagina e exibida, com indicacao da pagina atual |
+| **Resultado Obtido** | |
+| **Status** | Automatizado |
+| **Tipo** | Rota |
+| **Prioridade** | Alta |
+
+**Docstring:** `"""TC-RTE-08 | Rota | GET /content deve listar a primeira pagina paginada."""`
+
+---
+
+## TC-RTE-09 — GET /content?page=2 lista pagina intermediaria *(novo)*
+
+| Campo | Valor |
+|-------|-------|
+| **ID** | TC-RTE-09 |
+| **Titulo** | GET /content?page=2 lista uma pagina intermediaria |
+| **Modulo** | `backend/app/routes/content_routes.py` + `frontend/templates/list.html` |
+| **Requisito** | RF-023 |
+| **Pre-condicao** | Banco com conteudos suficientes para pelo menos duas paginas |
+| **Passos** | 1. Criar massa com mais de 20 conteudos. 2. GET `/content?page=2` |
+| **Entrada** | `page=2` |
+| **Resultado Esperado** | `status_code == 200`, itens da segunda pagina exibidos, com links para anterior/proxima quando aplicavel |
+| **Resultado Obtido** | |
+| **Status** | Automatizado |
+| **Tipo** | Rota |
+| **Prioridade** | Alta |
+
+**Docstring:** `"""TC-RTE-09 | Rota | GET /content?page=2 deve listar pagina intermediaria."""`
+
+---
+
+## TC-RTE-10 — GET /content?page=0 normaliza pagina menor que 1 *(novo)*
+
+| Campo | Valor |
+|-------|-------|
+| **ID** | TC-RTE-10 |
+| **Titulo** | GET /content?page=0 normaliza pagina menor que 1 |
+| **Modulo** | `backend/app/routes/content_routes.py` |
+| **Requisito** | RF-023 |
+| **Pre-condicao** | Banco com conteudos cadastrados |
+| **Passos** | 1. GET `/content?page=0` |
+| **Entrada** | `page=0` |
+| **Resultado Esperado** | `status_code == 200`, primeira pagina exibida sem erro inesperado |
+| **Resultado Obtido** | |
+| **Status** | Automatizado |
+| **Tipo** | Rota |
+| **Prioridade** | Alta |
+
+**Docstring:** `"""TC-RTE-10 | Rota | GET /content?page=0 deve normalizar pagina menor que 1."""`
+
+---
+
+## TC-RTE-11 — GET /content?page acima do total trata pagina solicitada *(novo)*
+
+| Campo | Valor |
+|-------|-------|
+| **ID** | TC-RTE-11 |
+| **Titulo** | GET /content?page acima do total trata a pagina solicitada |
+| **Modulo** | `backend/app/routes/content_routes.py` |
+| **Requisito** | RF-023 |
+| **Pre-condicao** | Banco com quantidade conhecida de conteudos |
+| **Passos** | 1. Criar massa com menos paginas que o valor solicitado. 2. GET `/content?page=999` |
+| **Entrada** | `page=999` |
+| **Resultado Esperado** | `status_code == 200`, ultima pagina valida exibida ou lista vazia tratada quando nao houver conteudos |
+| **Resultado Obtido** | |
+| **Status** | Automatizado |
+| **Tipo** | Rota |
+| **Prioridade** | Alta |
+
+**Docstring:** `"""TC-RTE-11 | Rota | GET /content?page acima do total deve tratar pagina solicitada."""`
+
+---
+
+## TC-RTE-12 — GET /content preserva quantidade maxima por pagina *(novo)*
+
+| Campo | Valor |
+|-------|-------|
+| **ID** | TC-RTE-12 |
+| **Titulo** | GET /content preserva a quantidade maxima por pagina |
+| **Modulo** | `backend/app/routes/content_routes.py` + `backend/app/services/content_service.py` |
+| **Requisito** | RF-023 |
+| **Pre-condicao** | Banco com mais conteudos do que o tamanho padrao da pagina |
+| **Passos** | 1. Criar massa com mais de 20 conteudos. 2. GET `/content` |
+| **Entrada** | Sem query string |
+| **Resultado Esperado** | No maximo 20 itens da listagem sao renderizados na pagina |
+| **Resultado Obtido** | |
+| **Status** | Automatizado |
+| **Tipo** | Rota |
+| **Prioridade** | Alta |
+
+**Docstring:** `"""TC-RTE-12 | Rota | GET /content deve preservar quantidade maxima por pagina."""`

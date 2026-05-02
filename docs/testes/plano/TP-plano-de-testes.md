@@ -32,7 +32,7 @@ Validar que as funcionalidades centrais do MVP (CRUD de conteúdo, upload de arq
 - Upload com validação de extensão, tamanho e encoding
 - Busca FTS5 com e sem filtros
 - Classificação de extensões (incluindo PowerBuilder)
-- Renderização de templates HTML (detail, list, home)
+- Renderização de templates HTML (detail, list, home), incluindo paginação da listagem
 - Metadados de upload (tabela `UploadedFile`)
 
 ### Fora do escopo
@@ -131,6 +131,11 @@ Os testes abaixo precisam passar para que o MVP seja considerado válido:
 | `test_fts_cleared_after_delete` | test_search_fts.py | RF-013 | FTS deve remover dados excluídos |
 | `test_search_combined_filters` | test_search_fts.py | RF-005 | Filtros combinados obrigatórios |
 | `test_detail_nonexistent_returns_404` | test_routes.py | RF-029 | Erro amigável obrigatório |
+| `test_list_content_first_page_is_paginated` | test_routes.py | RF-023 | Listagem deve carregar apenas a página atual |
+| `test_list_content_second_page` | test_routes.py | RF-023 | Navegação por query string deve funcionar |
+| `test_list_content_page_below_one` | test_routes.py | RF-023 | Página inválida menor que 1 deve ser tratada |
+| `test_list_content_page_above_total` | test_routes.py | RF-023 | Página acima do total deve ser tratada |
+| `test_list_content_respects_page_size` | test_routes.py | RF-023 | Quantidade máxima por página deve ser preservada |
 
 ---
 

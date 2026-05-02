@@ -5,6 +5,8 @@ from sqlalchemy.orm import Session
 from backend.app.models.content import Content, UploadedFile
 from backend.app.repositories.content_repository import ContentRepository
 
+CONTENT_PAGE_SIZE = 20
+
 
 class ContentService:
 
@@ -13,6 +15,30 @@ class ContentService:
 
     def list_all(self) -> list[Content]:
         return self.repo.get_all()
+
+    def list_page(self, page: int = 1, per_page: int = CONTENT_PAGE_SIZE) -> dict:
+        page = max(page, 1)
+        per_page = max(per_page, 1)
+        total_items = self.repo.count_all()
+        total_pages = (total_items + per_page - 1) // per_page
+
+        if total_pages == 0:
+            current_page = 1
+            items = []
+        else:
+            current_page = min(page, total_pages)
+            offset = (current_page - 1) * per_page
+            items = self.repo.get_page(per_page, offset)
+
+        return {
+            "items": items,
+            "total_items": total_items,
+            "total_pages": total_pages,
+            "current_page": current_page,
+            "per_page": per_page,
+            "previous_page": current_page - 1 if total_pages and current_page > 1 else None,
+            "next_page": current_page + 1 if current_page < total_pages else None,
+        }
 
     def get(self, content_id: int) -> Content | None:
         return self.repo.get_by_id(content_id)

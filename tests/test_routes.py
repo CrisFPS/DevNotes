@@ -1,4 +1,23 @@
+from datetime import UTC, datetime, timedelta
+
+from backend.app.models.content import Content
 from backend.app.services.content_service import ContentService
+
+
+def _create_paginated_items(db, total=25):
+    svc = ContentService(db)
+    base = datetime(2026, 1, 1, tzinfo=UTC)
+    for index in range(1, total + 1):
+        svc.create(
+            {
+                "title": f"Pagina Item {index:03d}",
+                "content": f"conteudo {index}",
+                "tags": [],
+            }
+        )
+    for index, item in enumerate(db.query(Content).order_by(Content.id).all(), start=1):
+        item.updated_at = base + timedelta(minutes=index)
+    db.commit()
 
 
 def test_home_returns_200(client):
@@ -11,6 +30,59 @@ def test_list_returns_200(client):
     """TC-RTE-02 | Rota | GET /content deve retornar status 200."""
     response = client.get("/content")
     assert response.status_code == 200
+
+
+def test_list_content_first_page_is_paginated(client, db):
+    """TC-RTE-08 | Rota | GET /content deve listar a primeira pagina paginada."""
+    _create_paginated_items(db, total=25)
+    response = client.get("/content")
+    assert response.status_code == 200
+    assert "Página 1 de 2" in response.text
+    assert "Pagina Item 025" in response.text
+    assert "Pagina Item 006" in response.text
+    assert "Pagina Item 005" not in response.text
+    assert 'href="/content?page=2"' in response.text
+
+
+def test_list_content_second_page(client, db):
+    """TC-RTE-09 | Rota | GET /content?page=2 deve listar pagina intermediaria."""
+    _create_paginated_items(db, total=25)
+    response = client.get("/content?page=2")
+    assert response.status_code == 200
+    assert "Página 2 de 2" in response.text
+    assert "Pagina Item 005" in response.text
+    assert "Pagina Item 001" in response.text
+    assert "Pagina Item 006" not in response.text
+    assert 'href="/content?page=1"' in response.text
+
+
+def test_list_content_page_below_one(client, db):
+    """TC-RTE-10 | Rota | GET /content?page=0 deve normalizar pagina menor que 1."""
+    _create_paginated_items(db, total=25)
+    response = client.get("/content?page=0")
+    assert response.status_code == 200
+    assert "Página 1 de 2" in response.text
+    assert "Pagina Item 025" in response.text
+    assert "Pagina Item 005" not in response.text
+
+
+def test_list_content_page_above_total(client, db):
+    """TC-RTE-11 | Rota | GET /content?page acima do total deve tratar pagina solicitada."""
+    _create_paginated_items(db, total=25)
+    response = client.get("/content?page=999")
+    assert response.status_code == 200
+    assert "Página 2 de 2" in response.text
+    assert "Pagina Item 005" in response.text
+    assert "Pagina Item 025" not in response.text
+
+
+def test_list_content_respects_page_size(client, db):
+    """TC-RTE-12 | Rota | GET /content deve preservar quantidade maxima por pagina."""
+    _create_paginated_items(db, total=25)
+    response = client.get("/content")
+    assert response.status_code == 200
+    assert response.text.count('data-title="Pagina Item') == 20
+    assert "25 conteúdos" in response.text
 
 
 def test_new_form_returns_200(client):

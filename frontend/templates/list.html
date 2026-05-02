@@ -37,6 +37,23 @@
         {% endfor %}
     </tbody>
 </table>
+{% if pagination and pagination.total_pages > 0 %}
+<nav class="pagination" aria-label="Paginação da listagem">
+    <span class="pagination-status">
+        Página {{ pagination.current_page }} de {{ pagination.total_pages }}
+        · {{ pagination.total_items }} conteúdo{{ '' if pagination.total_items == 1 else 's' }}
+    </span>
+    <div class="pagination-links">
+        {% if pagination.previous_page %}
+        <a class="btn btn-secondary btn-sm" href="/content?page={{ pagination.previous_page }}">Anterior</a>
+        {% endif %}
+        <span class="pagination-current">{{ pagination.current_page }}</span>
+        {% if pagination.next_page %}
+        <a class="btn btn-secondary btn-sm" href="/content?page={{ pagination.next_page }}">Próxima</a>
+        {% endif %}
+    </div>
+</nav>
+{% endif %}
 {% else %}
 <p>Nenhum conteúdo cadastrado ainda.</p>
 {% endif %}
