@@ -285,6 +285,11 @@ paginação.
 
 ### Documentação de testes
 
+A pasta `docs/testes/` reúne os artefatos formais de qualidade do projeto,
+complementando a suíte automatizada em `tests/`. Ela documenta a estratégia,
+o plano, os casos de teste, a rastreabilidade entre requisitos e testes, os
+relatórios de execução e o guia operacional para reprodução das validações.
+
 | Documento | Descrição |
 |-----------|-----------|
 | [docs/testes/estrategia/TE-estrategia-de-testes.md](docs/testes/estrategia/TE-estrategia-de-testes.md) | Pirâmide de testes, objetivos e padrões |
