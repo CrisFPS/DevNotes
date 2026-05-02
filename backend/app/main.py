@@ -13,7 +13,7 @@ async def lifespan(app: FastAPI):
     yield
 
 
-app = FastAPI(title="DevNotes Local", version="0.1.0", lifespan=lifespan)
+app = FastAPI(title="DevNotes Local", version="1.0.0", lifespan=lifespan)
 
 app.mount("/static", StaticFiles(directory="frontend/static"), name="static")
 
