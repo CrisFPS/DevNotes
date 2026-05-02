@@ -33,6 +33,7 @@ htmlcov/
 # IDEs
 .vscode/
 .idea/
+.claude/
 *.swp
 *.swo
 
@@ -43,10 +44,9 @@ Thumbs.db
 # Logs
 *.log
 
-# Prompts sensíveis — não versionar
-prompts/0.0_Prompt_gerador_dos_prompts.md
-prompts/0.1_Prompts_SDLC_Projeto_DevNotes_Local.md
-
 # arquivos de documentação e diagnóstico 
 docs/Tela de execução da implemntação.docx
 arquitetura/diagnostico-implementacao-01.md
+
+# Arquivo de configuração do projeto. Não possui informações sensíveis, mas pode conter detalhes específicos do ambiente de desenvolvimento local.
+config.yaml 
