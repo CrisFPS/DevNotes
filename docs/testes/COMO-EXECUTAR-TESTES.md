@@ -155,12 +155,12 @@ start htmlcov/index.html
 
 ```
 ============================= test session starts =============================
-collected 61 items
+collected 66 items
 
 tests/test_content_service.py::test_create_content PASSED
 tests/test_content_service.py::test_list_content PASSED
 ...
-============================== 61 passed in 0.59s =============================
+============================== 66 passed in 0.68s =============================
 ```
 
 ### Exemplo de falha

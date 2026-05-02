@@ -1,17 +1,92 @@
 # DevNotes Local
 
 Aplicação web local para organizar, pesquisar e reutilizar conteúdos técnicos:
-snippets, SQLs, scripts, anotações, arquivos de sistemas legados e regras de negócio.
+snippets, SQLs, scripts, anotações, arquivos de sistemas legados e regras de
+negócio.
 
-Projeto criado para fins didáticos em especialização de Engenharia de Software com
-uso de Inteligência Artificial Generativa.
+O projeto foi criado para fins didáticos em uma especialização de Engenharia de
+Software com uso de Inteligência Artificial Generativa. A ideia central é simples:
+trocar anotações técnicas dispersas por uma base local pesquisável, pequena o
+suficiente para caber em um MVP, mas estruturada o bastante para exercitar SDLC,
+arquitetura, testes, documentação e manutenção evolutiva.
 
 ---
 
 ## Objetivo
 
-Centralizar conteúdos técnicos dispersos em um repositório local simples, pesquisável
-e com preservação da formatação original.
+Centralizar conteúdos técnicos dispersos em um repositório local simples,
+pesquisável e com preservação da formatação original.
+
+O DevNotes Local atende especialmente cenários de estudo, manutenção de sistemas
+legados, consulta rápida de snippets, organização de regras de negócio e
+reaproveitamento de comandos ou scripts usados no dia a dia.
+
+---
+
+## Funcionalidades do MVP
+
+- Cadastrar conteúdos técnicos manualmente.
+- Editar e excluir conteúdos.
+- Listar conteúdos com paginação de 20 itens por página.
+- Fazer upload simples de um arquivo por vez, até 12 MB.
+- Aceitar as extensões `.py`, `.java`, `.sql`, `.md`, `.txt`, `.srw`, `.sru`,
+  `.srd`, `.srm`, `.srf`, `.sra`, `.srs`.
+- Classificar automaticamente arquivos PowerBuilder pela extensão.
+- Ler arquivos com fallback de encoding: `utf-8` → `latin-1` → `cp1252`.
+- Pesquisar conteúdos com SQLite FTS5.
+- Filtrar por categoria, linguagem, sistema, domínio, tags e regra de negócio.
+- Visualizar conteúdo com formatação preservada usando `<pre><code>`.
+- Destacar sintaxe com Highlight.js.
+
+---
+
+## Demonstração e exemplos de uso
+
+Depois de iniciar a aplicação, acesse:
+
+```text
+http://localhost:8000
+```
+
+Fluxo básico pelo navegador:
+
+1. Acesse `/content/new` para cadastrar uma anotação, snippet ou regra de negócio.
+2. Acesse `/upload` para importar um arquivo textual aceito pelo MVP.
+3. Acesse `/search` para pesquisar por texto livre e combinar filtros.
+4. Acesse `/content` para navegar pela listagem paginada.
+5. Abra um conteúdo para visualizar o texto preservado com destaque de sintaxe.
+
+Exemplos via `curl`, úteis para validação rápida das rotas HTML:
+
+```bash
+# Listar conteúdos cadastrados
+curl http://localhost:8000/content
+
+# Cadastrar conteúdo manualmente
+curl -i -X POST http://localhost:8000/content/new \
+  -F "title=Exemplo SQL" \
+  -F "content=SELECT * FROM clientes;" \
+  -F "category=SQL" \
+  -F "language=SQL" \
+  -F "system=Sistema Financeiro" \
+  -F "domain=Financeiro" \
+  -F "tags=sql, snippet"
+
+# Pesquisar conteúdos
+curl -i -X POST http://localhost:8000/search \
+  -F "query=clientes" \
+  -F "language=SQL"
+
+# Fazer upload de arquivo textual
+curl -i -X POST http://localhost:8000/upload \
+  -F "file=@exemplo.sql" \
+  -F "title=Consulta de clientes" \
+  -F "category=SQL" \
+  -F "tags=sql, legado"
+```
+
+Observação: o projeto não expõe uma API REST JSON pública. As rotas foram
+desenhadas para uma aplicação web server-side com FastAPI e Jinja2.
 
 ---
 
@@ -31,32 +106,28 @@ e com preservação da formatação original.
 
 ## Estrutura do projeto
 
-```
+```text
 devnotes-local/
 ├── backend/app/          FastAPI, rotas, serviços, modelos e persistência
 ├── docs/                 Documentação do projeto
-│   ├── arquitetura/      Arquitetura da solução e diagramas
-│   │   ├── visao-geral.md
-│   │   ├── diagramas.md  Todos os diagramas Mermaid (C1, C2, C3, fluxos, ER, sequência)
-│   │   └── adr/          Architecture Decision Records
+│   ├── arquitetura/      Arquitetura da solução, diagramas e ADRs
 │   ├── criterios/        Critérios de aceitação do MVP
-│   ├── features/         Feature(s) do produto (estilo Azure DevOps)
-│   ├── requisitos/       RF, RNF e Regras de Negócio
+│   ├── features/         Feature(s) do produto
+│   ├── requisitos/       RF, RNF e regras de negócio
 │   ├── riscos/           Registro de riscos identificados
-│   ├── tasks/            Tarefas técnicas (estilo Azure DevOps)
-│   ├── testes/           Documentação completa de testes (SDLC)
-│   │   ├── estrategia/   Pirâmide, objetivos e padrões
-│   │   ├── plano/        Plano de testes formal
-│   │   ├── casos/        Casos de teste por módulo
-│   │   ├── rastreabilidade/ Matriz RF ↔ TC
-│   │   └── relatorios/   Histórico de execuções
-│   └── us/               User Stories (estilo Azure DevOps)
+│   ├── tasks/            Tarefas técnicas
+│   ├── testes/           Estratégia, plano, casos, rastreabilidade e relatórios
+│   └── us/               User Stories
 ├── frontend/             Templates Jinja2, CSS e JavaScript simples
-├── prompts/              Prompts utilizados durante o desenvolvimento (didático)
+├── prompts/              Prompts utilizados durante o desenvolvimento
+├── scripts/              Scripts auxiliares, como geração de massa de dados
 ├── uploads/              Arquivos enviados pelo usuário
 ├── tests/                Testes automatizados com pytest
 ├── config.yaml           Configuração centralizada do MVP
-└── requirements.txt      Dependências do projeto
+├── config.example.yaml   Exemplo de configuração para referência
+├── Makefile              Atalhos de instalação, execução, testes e limpeza
+├── pyproject.toml        Metadados do projeto e configuração de ferramentas
+└── requirements.txt      Dependências fixadas do projeto
 ```
 
 ### Documentação arquitetural
@@ -64,7 +135,7 @@ devnotes-local/
 | Documento | Descrição |
 |---|---|
 | [docs/arquitetura/visao-geral.md](docs/arquitetura/visao-geral.md) | Visão geral, estrutura, entidades, rotas, decisões e riscos |
-| [docs/arquitetura/diagramas.md](docs/arquitetura/diagramas.md) | Todos os diagramas Mermaid da solução |
+| [docs/arquitetura/diagramas.md](docs/arquitetura/diagramas.md) | Diagramas Mermaid da solução |
 | [docs/arquitetura/adr/](docs/arquitetura/adr/) | Architecture Decision Records (ADRs) |
 
 ---
@@ -82,7 +153,8 @@ Antes de executar o projeto, é necessário ter instalado:
 
 Versão validada no ambiente virtual atual do projeto: **Python 3.12.7**.
 
-Não é necessário instalar Docker, Node.js ou PostgreSQL, pois o projeto usa FastAPI com templates Jinja2 e banco SQLite local.
+Não é necessário instalar Docker, Node.js ou PostgreSQL, pois o projeto usa
+FastAPI com templates Jinja2 e banco SQLite local.
 
 ---
 
@@ -106,7 +178,12 @@ python -m venv venv
 
 Acesse: http://localhost:8000
 
-O arquivo `requirements.txt` é a fonte principal de dependências do projeto. As versões estão fixadas para facilitar a reprodução do ambiente.
+O arquivo `requirements.txt` é a fonte principal de dependências do projeto. As
+versões estão fixadas para facilitar a reprodução do ambiente.
+
+O arquivo `config.example.yaml` documenta a estrutura esperada de configuração.
+Em um clone novo, use-o como referência caso precise recriar ou adaptar o
+`config.yaml`.
 
 ---
 
@@ -135,7 +212,8 @@ Acesse: http://localhost:8000
 
 ## Comandos com Makefile
 
-O `Makefile` centraliza as tarefas comuns do projeto. Ele usa o interpretador definido em `PYTHON`; quando essa variável não é informada, usa `python`.
+O `Makefile` centraliza as tarefas comuns do projeto. Ele usa o interpretador
+definido em `PYTHON`; quando essa variável não é informada, usa `python`.
 
 ```powershell
 # Instalar dependências
@@ -168,7 +246,8 @@ make run PYTHON=.\venv\Scripts\python.exe
 
 ## Como rodar os testes
 
-Os testes usam SQLite in-memory — nenhum dado é gravado no banco real do projeto. A suíte validada possui **61 testes passando**.
+Os testes usam SQLite in-memory; nenhum dado é gravado no banco real do projeto.
+A suíte validada possui **66 testes passando**.
 
 ```powershell
 # Todos os testes
@@ -190,43 +269,25 @@ Também é possível usar:
 make test
 ```
 
----
-
-## Comandos de manutenção
-
-Os comandos abaixo exigem GNU Make instalado no ambiente:
-
-```powershell
-# Formatar código Python com Black
-make format
-
-# Remover caches e arquivos temporários
-make clean
-```
-
-**Suíte atual validada:** 61 testes | 7 arquivos | cobertura dos módulos de serviço, rotas HTTP e operações de exclusão.
-
-### Arquivos locais e uploads
-
-- A pasta `uploads/` existe no repositório por causa de `uploads/.gitkeep`.
-- Arquivos enviados pelo usuário durante o uso local não devem ser versionados.
-- Bancos SQLite locais, caches Python, caches pytest e ambientes virtuais são ignorados pelo `.gitignore`.
+**Suíte atual validada:** 66 testes | 7 arquivos | cobertura dos módulos de
+serviço, rotas HTTP, busca FTS5, upload, encoding, classificação, exclusão e
+paginação.
 
 | Arquivo | Testes |
-|---|---|
-| `test_routes.py` | 13 |
-| `test_delete.py` | 13 |
-| `test_extension_classifier.py` | 12 |
-| `test_upload_service.py` | 7 |
+|---|---:|
 | `test_content_service.py` | 6 |
-| `test_search_fts.py` | 6 |
+| `test_delete.py` | 13 |
 | `test_encoding_service.py` | 4 |
+| `test_extension_classifier.py` | 12 |
+| `test_routes.py` | 18 |
+| `test_search_fts.py` | 6 |
+| `test_upload_service.py` | 7 |
 
 ### Documentação de testes
 
 | Documento | Descrição |
 |-----------|-----------|
-| [docs/testes/estrategia/TE-estrategia-de-testes.md](docs/testes/estrategia/TE-estrategia-de-testes.md) | Pirâmide de testes (diagrama Mermaid), objetivos e padrões |
+| [docs/testes/estrategia/TE-estrategia-de-testes.md](docs/testes/estrategia/TE-estrategia-de-testes.md) | Pirâmide de testes, objetivos e padrões |
 | [docs/testes/plano/TP-plano-de-testes.md](docs/testes/plano/TP-plano-de-testes.md) | Plano formal com critérios de entrada e saída |
 | [docs/testes/casos/](docs/testes/casos/) | Casos de teste canônicos por módulo |
 | [docs/testes/rastreabilidade/RTM-matriz-rastreabilidade.md](docs/testes/rastreabilidade/RTM-matriz-rastreabilidade.md) | Rastreabilidade RF ↔ TC |
@@ -235,37 +296,147 @@ make clean
 
 ---
 
-## Funcionalidades do MVP
+## Massa de dados opcional
 
-- Cadastrar conteúdos técnicos manualmente
-- Editar e excluir conteúdos
-- Upload simples de um arquivo por vez (até 12 MB)
-- Extensões aceitas: `.py`, `.java`, `.sql`, `.md`, `.txt`, `.srw`, `.sru`, `.srd`, `.srm`, `.srf`, `.sra`, `.srs`
-- Classificação automática de arquivos PowerBuilder pela extensão
-- Leitura com fallback de encoding: utf-8 → latin-1 → cp1252
-- Pesquisa textual com SQLite FTS5
-- Filtros por categoria, linguagem, sistema, domínio, tags e regra de negócio
-- Visualização com formatação preservada (`<pre><code>`)
-- Destaque de sintaxe com Highlight.js
+Para avaliar a paginação e a visualização com maior volume de registros, existe
+um script de geração de dados locais:
+
+```powershell
+.\venv\Scripts\python.exe scripts\seed_random_notes.py
+```
+
+Por padrão, o script cria 200 anotações técnicas variadas e reproduzíveis. Ele
+também remove a massa anterior gerada pelo próprio script antes de inserir novos
+registros, reduzindo duplicações em execuções repetidas.
 
 ---
 
-## Fora do escopo do MVP
+## Arquivos locais e uploads
 
-- Autenticação e controle de usuários
-- Publicação em produção
-- Backup automático
-- APIs externas
-- Microsserviços ou arquitetura distribuída
-- Frontend sofisticado
+- A pasta `uploads/` existe no repositório por causa de `uploads/.gitkeep`.
+- Arquivos enviados pelo usuário durante o uso local não devem ser versionados.
+- Bancos SQLite locais, caches Python, caches pytest e ambientes virtuais são
+  ignorados pelo `.gitignore`.
+
+---
+
+## Como a IA apoiou o desenvolvimento
+
+O DevNotes Local foi desenvolvido com apoio de Inteligência Artificial Generativa
+ao longo do ciclo de vida do projeto. A IA foi usada principalmente como parceira
+de planejamento, refinamento de requisitos, desenho arquitetural, implementação
+assistida, criação de testes e manutenção evolutiva.
+
+O uso mais valioso ocorreu na organização do SDLC: os prompts registrados em
+`prompts/` ajudaram a transformar uma ideia inicial em requisitos, ADRs, tarefas
+técnicas, estratégia de testes e melhorias incrementais. Na arquitetura, a IA
+apoiou decisões proporcionais ao porte do MVP, como manter FastAPI com Jinja2,
+SQLite com FTS5, configuração centralizada em YAML e uma divisão simples entre
+rotas, serviços, repositórios e templates.
+
+Também houve ganhos na fase de qualidade. A suíte evoluiu até **66 testes
+automatizados**, cobrindo serviços, rotas, upload, encoding, classificação,
+busca FTS5, exclusão e paginação. A IA ajudou a identificar lacunas de teste,
+documentar casos e orientar correções, enquanto a validação final permaneceu
+baseada em revisão humana, execução real dos testes e conferência do histórico
+do Git.
+
+Exemplos concretos de uso da IA no projeto:
+
+- Planejamento do MVP em escopo de 3 a 12 horas, evitando funcionalidades grandes
+  demais para o objetivo didático.
+- Refinamento de requisitos funcionais, não funcionais, regras de negócio,
+  critérios de aceitação e riscos.
+- Geração e revisão de ADRs para decisões como FastAPI + Jinja2, SQLite + FTS5,
+  SQLAlchemy e `config.yaml`.
+- Expansão da estratégia de testes, incluindo documentação SDLC, matriz de
+  rastreabilidade e novos casos automatizados.
+- Manutenção evolutiva com geração de massa de 200 registros e implementação da
+  paginação na listagem.
+
+Uma lição importante foi que a IA acelera bastante a produção de artefatos,
+alternativas e código inicial, mas não substitui validação humana. O projeto
+exigiu revisão de escopo, execução real dos testes, leitura dos diffs e atualização
+da documentação para evitar divergências, como números de testes desatualizados.
 
 ---
 
 ## Uso das pastas didáticas
 
-- `prompts/` — armazena os prompts utilizados em cada fase do SDLC, permitindo
+- `prompts/` armazena os prompts utilizados em cada fase do SDLC, permitindo
   acompanhar o raciocínio, as decisões e o refinamento das solicitações à IA.
-- `docs/` — armazena toda a documentação do projeto: requisitos funcionais e não
-  funcionais (`requisitos/`), regras de negócio, critérios de aceitação (`criterios/`),
-  registro de riscos (`riscos/`) e artefatos de gestão simulando Azure DevOps:
-  features (`features/`), user stories (`us/`) e tarefas técnicas (`tasks/`).
+- `docs/` armazena toda a documentação do projeto: requisitos funcionais e não
+  funcionais (`requisitos/`), regras de negócio, critérios de aceitação
+  (`criterios/`), registro de riscos (`riscos/`) e artefatos de gestão simulando
+  Azure DevOps: features (`features/`), user stories (`us/`) e tarefas técnicas
+  (`tasks/`).
+
+---
+
+## Limitações conhecidas
+
+- O sistema é local e individual; não há autenticação, autorização ou múltiplos
+  usuários.
+- O banco é SQLite; adequado ao MVP, mas sem estratégia de migração de schema.
+  Alterações estruturais podem exigir recriação manual do banco local.
+- A busca FTS5 é textual e lexical; ela não faz busca semântica nem entende
+  intenção do usuário.
+- O upload processa um arquivo por vez e limita arquivos a 12 MB.
+- O Highlight.js é carregado via CDN, então o destaque de sintaxe pode depender
+  de internet no primeiro acesso.
+- Não há backup automático, exportação formal ou sincronização em nuvem.
+- As rotas são voltadas para HTML server-side; o projeto não oferece uma API JSON
+  estável para integração externa.
+
+---
+
+## Fora do escopo do MVP
+
+- Autenticação e controle de usuários.
+- Publicação em produção.
+- Backup automático.
+- APIs externas.
+- Microsserviços ou arquitetura distribuída.
+- Frontend sofisticado ou SPA.
+- Busca semântica, RAG ou IA embutida no produto.
+
+---
+
+## Próximos passos
+
+Evoluções coerentes com o porte do projeto:
+
+- Adicionar capturas de tela ou um GIF curto demonstrando cadastro, upload,
+  pesquisa e visualização.
+- Criar exportação simples dos dados locais.
+- Adicionar rotina de backup manual do banco SQLite e da pasta `uploads/`.
+- Avaliar migrações com Alembic se o modelo de dados continuar evoluindo.
+- Servir Highlight.js localmente para reduzir dependência de CDN.
+- Melhorar busca com paginação combinada a filtros.
+- Estudar busca semântica ou integração com IA em uma etapa posterior, fora do
+  MVP atual.
+
+---
+
+## Estado para submissão
+
+- Branch principal: `main`.
+- Repositório remoto público verificado: `https://github.com/CrisFPS/DevNotes`.
+- Dependências fixadas em `requirements.txt`.
+- Projeto versionado como `1.0.0` em `pyproject.toml`.
+- Suíte automatizada validada com `pytest`: **66 passed**.
+- Documentação técnica organizada em `docs/`.
+- Prompts do processo de desenvolvimento registrados em `prompts/`.
+
+Antes da submissão final, recomenda-se criar uma tag ou release `v1.0.0` no
+GitHub apontando para o commit final entregue.
+
+---
+
+## Licença e uso
+
+Este projeto está publicado para fins de avaliação acadêmica e demonstração do
+miniprojeto.
+
+Nenhuma licença open source foi definida neste momento. Todos os direitos sobre
+o código permanecem reservados ao autor.

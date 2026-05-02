@@ -1,0 +1,97 @@
+# Exemplo de configuracao do DevNotes Local.
+# Copie este arquivo para config.yaml e ajuste as listas conforme seu contexto.
+
+sistemas:
+  - Sistema Administrativo
+  - Sistema Financeiro
+  - Sistema RH
+  - Sistema Legado
+
+dominios:
+  - Administrativo
+  - Contabil
+  - Financeiro
+  - Recursos Humanos
+  - Tecnico
+
+linguagens:
+  - Python
+  - Java
+  - SQL
+  - Markdown
+  - Texto comum
+  - PowerBuilder
+
+extensoes_aceitas:
+  - .py
+  - .java
+  - .sql
+  - .md
+  - .txt
+  - .srw
+  - .sru
+  - .srd
+  - .srm
+  - .srf
+  - .sra
+  - .srs
+
+mapeamento_extensao_tipo:
+  .py: Python
+  .java: Java
+  .sql: SQL
+  .md: Markdown
+  .txt: Texto comum
+  .srw: PowerBuilder Window
+  .sru: PowerBuilder User Object
+  .srd: PowerBuilder DataWindow
+  .srm: PowerBuilder Menu
+  .srf: PowerBuilder Function
+  .sra: PowerBuilder Application
+  .srs: PowerBuilder Structure
+
+mapeamento_extensao_linguagem:
+  .py: Python
+  .java: Java
+  .sql: SQL
+  .md: Markdown
+  .txt: Texto comum
+  .srw: PowerBuilder
+  .sru: PowerBuilder
+  .srd: PowerBuilder
+  .srm: PowerBuilder
+  .srf: PowerBuilder
+  .sra: PowerBuilder
+  .srs: PowerBuilder
+
+tags_pre_cadastradas:
+  - sql
+  - procedure
+  - powerbuilder
+  - regra-negocio
+  - financeiro
+  - integracao
+  - python
+  - markdown
+  - java
+  - script
+  - snippet
+  - legado
+  - erro
+  - performance
+
+categorias:
+  - Snippet
+  - SQL
+  - Script
+  - Regra de Negocio
+  - Anotacao Tecnica
+  - Procedure
+  - Exemplo
+  - Documentacao
+  - Comando
+  - Erro e Solucao
+  - Prompt
+
+upload:
+  tamanho_maximo_mb: 12
