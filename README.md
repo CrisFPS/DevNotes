@@ -363,13 +363,13 @@ da documentação para evitar divergências, como números de testes desatualiza
 
 ## Uso das pastas didáticas
 
-- `prompts/` armazena os prompts utilizados em cada fase do SDLC, permitindo
+- [`prompts/`](prompts/) armazena os prompts utilizados em cada fase do SDLC, permitindo
   acompanhar o raciocínio, as decisões e o refinamento das solicitações à IA.
-- `docs/` armazena toda a documentação do projeto: requisitos funcionais e não
-  funcionais (`requisitos/`), regras de negócio, critérios de aceitação
-  (`criterios/`), registro de riscos (`riscos/`) e artefatos de gestão simulando
-  Azure DevOps: features (`features/`), user stories (`us/`) e tarefas técnicas
-  (`tasks/`).
+- [`docs/`](docs/) armazena toda a documentação do projeto: requisitos funcionais e não
+  funcionais ([`requisitos/`](docs/requisitos/)), regras de negócio, critérios de aceitação
+  ([`criterios/`](docs/criterios/)), registro de riscos ([`riscos/`](docs/riscos/)) e artefatos de gestão simulando
+  Azure DevOps: features ([`features/`](docs/features/)), user stories ([`us/`](docs/us/)) e tarefas técnicas
+  ([`tasks/`](docs/tasks/)).
 
 ---
 
