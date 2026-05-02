@@ -382,6 +382,8 @@ da documentação para evitar divergências, como números de testes desatualiza
 - A busca FTS5 é textual e lexical; ela não faz busca semântica nem entende
   intenção do usuário.
 - O upload processa um arquivo por vez e limita arquivos a 12 MB.
+- A listagem paginada usa 20 itens por página, mas o espaçamento visual atual
+  entre os itens pode exigir rolagem excessiva em telas menores.
 - O Highlight.js é carregado via CDN, então o destaque de sintaxe pode depender
   de internet no primeiro acesso.
 - Não há backup automático, exportação formal ou sincronização em nuvem.
@@ -412,6 +414,10 @@ Evoluções coerentes com o porte do projeto:
 - Adicionar rotina de backup manual do banco SQLite e da pasta `uploads/`.
 - Avaliar migrações com Alembic se o modelo de dados continuar evoluindo.
 - Servir Highlight.js localmente para reduzir dependência de CDN.
+- Melhorar a densidade visual da listagem paginada, compactando o espaçamento
+  entre itens antes de alterar o tamanho padrão da página.
+- Avaliar, após o ajuste visual, um seletor de quantidade de itens por página
+  com opções como 10, 20 e 50.
 - Melhorar busca com paginação combinada a filtros.
 - Estudar busca semântica ou integração com IA em uma etapa posterior, fora do
   MVP atual.
