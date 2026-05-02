@@ -19,7 +19,7 @@ Se ainda não criou o ambiente virtual:
 
 ```bash
 python -m venv venv
-./venv/Scripts/pip install -r requirements.txt
+.\venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
 ---
@@ -44,19 +44,19 @@ tests/
 ### Todos os testes de uma vez
 
 ```bash
-./venv/Scripts/pytest.exe
+.\venv\Scripts\python.exe -m pytest
 ```
 
 ### Com saída detalhada (recomendado)
 
 ```bash
-./venv/Scripts/pytest.exe -v
+.\venv\Scripts\python.exe -m pytest -v
 ```
 
 ### Com detalhes de falhas
 
 ```bash
-./venv/Scripts/pytest.exe -v --tb=short
+.\venv\Scripts\python.exe -m pytest -v --tb=short
 ```
 
 ---
@@ -65,22 +65,22 @@ tests/
 
 ```bash
 # Testes do ContentService (CRUD + attach_file)
-./venv/Scripts/pytest.exe tests/test_content_service.py -v
+.\venv\Scripts\python.exe -m pytest tests/test_content_service.py -v
 
 # Testes de encoding (utf-8, latin-1, cp1252)
-./venv/Scripts/pytest.exe tests/test_encoding_service.py -v
+.\venv\Scripts\python.exe -m pytest tests/test_encoding_service.py -v
 
 # Testes de classificação de extensões
-./venv/Scripts/pytest.exe tests/test_extension_classifier.py -v
+.\venv\Scripts\python.exe -m pytest tests/test_extension_classifier.py -v
 
 # Testes de rotas HTTP (GET e POST)
-./venv/Scripts/pytest.exe tests/test_routes.py -v
+.\venv\Scripts\python.exe -m pytest tests/test_routes.py -v
 
 # Testes de busca FTS5 e filtros
-./venv/Scripts/pytest.exe tests/test_search_fts.py -v
+.\venv\Scripts\python.exe -m pytest tests/test_search_fts.py -v
 
 # Testes de upload (extensão e tamanho)
-./venv/Scripts/pytest.exe tests/test_upload_service.py -v
+.\venv\Scripts\python.exe -m pytest tests/test_upload_service.py -v
 ```
 
 ---
@@ -88,9 +88,9 @@ tests/
 ## Executando um Teste Específico
 
 ```bash
-./venv/Scripts/pytest.exe tests/test_routes.py::test_edit_content_via_route -v
-./venv/Scripts/pytest.exe tests/test_content_service.py::test_attach_file_saves_uploaded_file_record -v
-./venv/Scripts/pytest.exe tests/test_search_fts.py::test_fts_updated_after_content_update -v
+.\venv\Scripts\python.exe -m pytest tests/test_routes.py::test_edit_content_via_route -v
+.\venv\Scripts\python.exe -m pytest tests/test_content_service.py::test_attach_file_saves_uploaded_file_record -v
+.\venv\Scripts\python.exe -m pytest tests/test_search_fts.py::test_fts_updated_after_content_update -v
 ```
 
 ---
@@ -101,16 +101,16 @@ A flag `-k` filtra testes pelo nome. Exemplos:
 
 ```bash
 # Todos os testes de PowerBuilder
-./venv/Scripts/pytest.exe -k "powerbuilder" -v
+.\venv\Scripts\python.exe -m pytest -k "powerbuilder" -v
 
 # Todos os testes de rota POST
-./venv/Scripts/pytest.exe -k "route" -v
+.\venv\Scripts\python.exe -m pytest -k "route" -v
 
 # Todos os testes de encoding
-./venv/Scripts/pytest.exe -k "encoding or enc" -v
+.\venv\Scripts\python.exe -m pytest -k "encoding or enc" -v
 
 # Testes obrigatórios de upload
-./venv/Scripts/pytest.exe -k "upload" -v
+.\venv\Scripts\python.exe -m pytest -k "upload" -v
 ```
 
 ---
@@ -120,19 +120,19 @@ A flag `-k` filtra testes pelo nome. Exemplos:
 Requer o pacote `pytest-cov`. Para instalar:
 
 ```bash
-./venv/Scripts/pip install pytest-cov
+.\venv\Scripts\python.exe -m pip install pytest-cov
 ```
 
 Executar com relatório no terminal:
 
 ```bash
-./venv/Scripts/pytest.exe --cov=backend/app --cov-report=term-missing
+.\venv\Scripts\python.exe -m pytest --cov=backend/app --cov-report=term-missing
 ```
 
 Gerar relatório HTML (abre em `htmlcov/index.html`):
 
 ```bash
-./venv/Scripts/pytest.exe --cov=backend/app --cov-report=html
+.\venv\Scripts\python.exe -m pytest --cov=backend/app --cov-report=html
 start htmlcov/index.html
 ```
 
@@ -155,12 +155,12 @@ start htmlcov/index.html
 
 ```
 ============================= test session starts =============================
-collected 48 items
+collected 61 items
 
 tests/test_content_service.py::test_create_content PASSED
 tests/test_content_service.py::test_list_content PASSED
 ...
-============================== 48 passed in 0.45s =============================
+============================== 61 passed in 0.59s =============================
 ```
 
 ### Exemplo de falha
@@ -172,7 +172,7 @@ FAILED tests/test_routes.py::test_edit_content_via_route - AssertionError: ...
 Quando ocorrer falha, execute com `--tb=long` para ver o traceback completo:
 
 ```bash
-./venv/Scripts/pytest.exe -v --tb=long
+.\venv\Scripts\python.exe -m pytest -v --tb=long
 ```
 
 ---
@@ -182,7 +182,7 @@ Quando ocorrer falha, execute com `--tb=long` para ver o traceback completo:
 Os testes abaixo precisam passar para o MVP ser considerado válido. Execute-os isoladamente para verificação rápida:
 
 ```bash
-./venv/Scripts/pytest.exe -v -k "test_create_content or test_update_content or test_delete_content or test_search_by_text or test_search_with_filter or test_valid_extension_py or test_invalid_extension_raises or test_upload_rejects_oversized_file or test_upload_via_route or test_attach_file_saves_uploaded_file_record or test_read_utf8 or test_read_latin1 or test_powerbuilder_window or test_edit_content_via_route or test_delete_content_via_route or test_detail_renders_pre_code_block or test_fts_updated_after_content_update or test_fts_cleared_after_delete or test_search_combined_filters or test_detail_nonexistent_returns_404"
+.\venv\Scripts\python.exe -m pytest -v -k "test_create_content or test_update_content or test_delete_content or test_search_by_text or test_search_with_filter or test_valid_extension_py or test_invalid_extension_raises or test_upload_rejects_oversized_file or test_upload_via_route or test_attach_file_saves_uploaded_file_record or test_read_utf8 or test_read_latin1 or test_powerbuilder_window or test_edit_content_via_route or test_delete_content_via_route or test_detail_renders_pre_code_block or test_fts_updated_after_content_update or test_fts_cleared_after_delete or test_search_combined_filters or test_detail_nonexistent_returns_404"
 ```
 
 ---

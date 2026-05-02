@@ -1,19 +1,23 @@
+PYTHON ?= python
+APP ?= backend.app.main:app
+PORT ?= 8000
+
 .PHONY: install run test format clean help
 
 install:
-	python -m pip install -r requirements.txt
+	$(PYTHON) -m pip install -r requirements.txt
 
 run:
-	python -m uvicorn backend.app.main:app --reload --port 8000
+	$(PYTHON) -m uvicorn $(APP) --reload --port $(PORT)
 
 test:
-	python -m pytest -v
+	$(PYTHON) -m pytest -v
 
 format:
-	python -m black backend tests
+	$(PYTHON) -m black backend tests
 
 clean:
-	python -c "import pathlib, shutil; [shutil.rmtree(p, ignore_errors=True) for p in ['.pytest_cache', '.tmp_pytest']]; [shutil.rmtree(p, ignore_errors=True) for p in pathlib.Path('.').glob('.pytest_tmp*')]; [shutil.rmtree(p, ignore_errors=True) for p in pathlib.Path('.').glob('pytest-cache-files-*')]; [shutil.rmtree(p, ignore_errors=True) for p in pathlib.Path('.').rglob('__pycache__')]"
+	$(PYTHON) -c "import pathlib, shutil; [shutil.rmtree(p, ignore_errors=True) for p in ['.pytest_cache', '.tmp_pytest', '.tmp_pytest_run']]; [shutil.rmtree(p, ignore_errors=True) for p in pathlib.Path('.').glob('.pytest_tmp*')]; [shutil.rmtree(p, ignore_errors=True) for p in pathlib.Path('.').glob('pytest-cache-files-*')]; [shutil.rmtree(p, ignore_errors=True) for p in pathlib.Path('.').rglob('__pycache__')]"
 
 help:
 	@echo Comandos disponiveis:
@@ -22,3 +26,4 @@ help:
 	@echo   make test     - Executa os testes
 	@echo   make format   - Formata o codigo Python com Black
 	@echo   make clean    - Remove caches e arquivos temporarios
+	@echo   PYTHON=...    - Opcional: define o interpretador Python usado pelo Makefile

@@ -25,6 +25,7 @@ uploads/*
 .pytest_cache/
 .pytest_tmp*/
 .tmp_pytest/
+.tmp_pytest*/
 pytest-cache-files-*/
 .coverage
 htmlcov/

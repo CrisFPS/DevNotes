@@ -73,17 +73,42 @@ devnotes-local/
 
 Antes de executar o projeto, é necessário ter instalado:
 
-- Python 3.11
+- Python 3.11 ou superior
 - Git
 - pip, normalmente incluído na instalação do Python
 - venv, normalmente incluído na instalação do Python
 - Navegador web para acessar a aplicação local
+- GNU Make, opcional, apenas para usar os comandos `make`
 
 Não é necessário instalar Docker, Node.js ou PostgreSQL, pois o projeto usa FastAPI com templates Jinja2 e banco SQLite local.
 
 ---
 
-## Como configurar o ambiente
+## Execução rápida no Windows
+
+Fluxo recomendado para um clone novo do projeto:
+
+```powershell
+# 1. Criar ambiente virtual
+python -m venv venv
+
+# 2. Instalar dependências
+.\venv\Scripts\python.exe -m pip install -r requirements.txt
+
+# 3. Rodar a suíte de testes
+.\venv\Scripts\python.exe -m pytest -v
+
+# 4. Iniciar a aplicação
+.\venv\Scripts\python.exe -m uvicorn backend.app.main:app --reload --port 8000
+```
+
+Acesse: http://localhost:8000
+
+O arquivo `requirements.txt` é a fonte principal de dependências do projeto. As versões estão fixadas para facilitar a reprodução do ambiente.
+
+---
+
+## Execução com ambiente ativado
 
 ```bash
 # Criar ambiente virtual com Python 3.11
@@ -93,51 +118,73 @@ python -m venv venv
 venv\Scripts\activate
 
 # Instalar dependências
-pip install -r requirements.txt
-```
+python -m pip install -r requirements.txt
 
-O arquivo `requirements.txt` é a fonte principal de dependências do projeto.
+# Rodar os testes
+python -m pytest -v
 
----
-
-## Como executar
-
-```bash
-# Com o ambiente virtual ativado
-uvicorn backend.app.main:app --reload --port 8000
+# Iniciar a aplicação
+python -m uvicorn backend.app.main:app --reload --port 8000
 ```
 
 Acesse: http://localhost:8000
 
-Também é possível usar:
+---
 
-```bash
+## Comandos com Makefile
+
+O `Makefile` centraliza as tarefas comuns do projeto. Ele usa o interpretador definido em `PYTHON`; quando essa variável não é informada, usa `python`.
+
+```powershell
+# Instalar dependências
+make install
+
+# Executar testes
+make test
+
+# Iniciar o servidor em localhost:8000
 make run
+
+# Formatar código Python com Black
+make format
+
+# Remover caches e arquivos temporários
+make clean
+
+# Exibir comandos disponíveis
+make help
+```
+
+No Windows, se quiser garantir o uso do ambiente virtual sem ativá-lo antes:
+
+```powershell
+make test PYTHON=.\venv\Scripts\python.exe
+make run PYTHON=.\venv\Scripts\python.exe
 ```
 
 ---
 
 ## Como rodar os testes
 
-Os testes usam SQLite in-memory — nenhum dado é gravado no banco real do projeto.
+Os testes usam SQLite in-memory — nenhum dado é gravado no banco real do projeto. A suíte validada possui **61 testes passando**.
 
-```bash
+```powershell
 # Todos os testes
-./venv/Scripts/pytest.exe -v
+.\venv\Scripts\python.exe -m pytest -v
 
 # Com detalhes de falha
-./venv/Scripts/pytest.exe -v --tb=short
+.\venv\Scripts\python.exe -m pytest -v --tb=short
 
 # Apenas um arquivo
-./venv/Scripts/pytest.exe tests/test_routes.py -v
+.\venv\Scripts\python.exe -m pytest tests/test_routes.py -v
 
 # Apenas um teste específico
-./venv/Scripts/pytest.exe tests/test_routes.py::test_edit_content_via_route -v
+.\venv\Scripts\python.exe -m pytest tests/test_routes.py::test_edit_content_via_route -v
 ```
 
 Também é possível usar:
 
-```bash
+```powershell
 make test
 ```
 
@@ -145,9 +192,9 @@ make test
 
 ## Comandos de manutenção
 
-Os comandos abaixo exigem GNU Make instalado no ambiente.
+Os comandos abaixo exigem GNU Make instalado no ambiente:
 
-```bash
+```powershell
 # Formatar código Python com Black
 make format
 
@@ -155,7 +202,13 @@ make format
 make clean
 ```
 
-**Suite atual:** 61 testes | 7 arquivos | cobertura dos módulos de serviço, rotas HTTP e operações de exclusão.
+**Suíte atual validada:** 61 testes | 7 arquivos | cobertura dos módulos de serviço, rotas HTTP e operações de exclusão.
+
+### Arquivos locais e uploads
+
+- A pasta `uploads/` existe no repositório por causa de `uploads/.gitkeep`.
+- Arquivos enviados pelo usuário durante o uso local não devem ser versionados.
+- Bancos SQLite locais, caches Python, caches pytest e ambientes virtuais são ignorados pelo `.gitignore`.
 
 | Arquivo | Testes |
 |---|---|
