@@ -25,7 +25,7 @@ O MVP poderá ser considerado pronto quando os critérios abaixo forem atendidos
 
 | ID     | Critério de aceitação                                                                                                         |
 | ------ | ----------------------------------------------------------------------------------------------------------------------------- |
-| CA-001 | A aplicação inicia localmente usando Python 3.11, ambiente virtual `venv` e FastAPI.                                          |
+| CA-001 | A aplicação inicia localmente usando Python 3.11 ou superior, ambiente virtual `venv` e FastAPI.                              |
 | CA-002 | A estrutura mínima de pastas existe conforme definido: `backend/`, `frontend/`, `uploads/`, `prompts/`, `docs/`, `tests/`.   |
 | CA-003 | O sistema possui banco SQLite configurado.                                                                                    |
 | CA-004 | O sistema utiliza SQLAlchemy para persistência dos dados.                                                                     |

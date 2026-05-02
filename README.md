@@ -17,7 +17,7 @@ e com preservação da formatação original.
 
 ## Tecnologias
 
-- Python 3.11
+- Python 3.11 ou superior
 - FastAPI
 - SQLite + SQLite FTS5
 - SQLAlchemy
@@ -80,6 +80,8 @@ Antes de executar o projeto, é necessário ter instalado:
 - Navegador web para acessar a aplicação local
 - GNU Make, opcional, apenas para usar os comandos `make`
 
+Versão validada no ambiente virtual atual do projeto: **Python 3.12.7**.
+
 Não é necessário instalar Docker, Node.js ou PostgreSQL, pois o projeto usa FastAPI com templates Jinja2 e banco SQLite local.
 
 ---
@@ -111,7 +113,7 @@ O arquivo `requirements.txt` é a fonte principal de dependências do projeto. A
 ## Execução com ambiente ativado
 
 ```bash
-# Criar ambiente virtual com Python 3.11
+# Criar ambiente virtual com Python 3.11 ou superior
 python -m venv venv
 
 # Ativar no Windows

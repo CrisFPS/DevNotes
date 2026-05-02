@@ -11,7 +11,7 @@ dependencias: TASK-001
 
 ## Descrição
 
-Configurar o ambiente virtual local do projeto usando Python 3.11 e preparar o arquivo de dependências.
+Configurar o ambiente virtual local do projeto usando Python 3.11 ou superior e preparar o arquivo de dependências.
 
 ---
 
@@ -20,6 +20,7 @@ Configurar o ambiente virtual local do projeto usando Python 3.11 e preparar o a
 - Ambiente virtual pode ser criado com `venv`.
 - Dependências do MVP estão previstas no `requirements.txt`.
 - O projeto pode ser executado localmente a partir do ambiente virtual.
+- O ambiente validado neste repositório usa Python 3.12.7.
 
 ---
 

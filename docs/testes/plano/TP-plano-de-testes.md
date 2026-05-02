@@ -78,7 +78,7 @@ Ver detalhes em `docs/testes/estrategia/TE-estrategia-de-testes.md`.
 
 | Item | Versão |
 |------|--------|
-| Python | 3.12 |
+| Python | 3.12.7 |
 | pytest | 8.3.3 |
 | Banco de testes | SQLite in-memory |
 | HTTP client | TestClient (FastAPI/httpx) |
