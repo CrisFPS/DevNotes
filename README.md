@@ -247,7 +247,7 @@ make run PYTHON=.\venv\Scripts\python.exe
 ## Como rodar os testes
 
 Os testes usam SQLite in-memory; nenhum dado é gravado no banco real do projeto.
-A suíte validada possui **66 testes passando**.
+A suíte validada possui **107 testes passando**.
 
 ```powershell
 # Todos os testes
@@ -269,7 +269,7 @@ Também é possível usar:
 make test
 ```
 
-**Suíte atual validada:** 66 testes | 7 arquivos | cobertura dos módulos de
+**Suíte atual validada:** 107 testes | 8 arquivos | cobertura dos módulos de
 serviço, rotas HTTP, busca FTS5, upload, encoding, classificação, exclusão e
 paginação.
 
@@ -281,6 +281,7 @@ paginação.
 | `test_extension_classifier.py` | 12 |
 | `test_routes.py` | 18 |
 | `test_search_fts.py` | 6 |
+| `test_tag_normalizer.py` | 41 |
 | `test_upload_service.py` | 7 |
 
 ### Documentação de testes
