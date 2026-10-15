@@ -119,7 +119,7 @@ EXAMPLE_TESTS = {
     "test_inner_space_becomes_hyphen",
     "test_removes_duplicates_after_normalizing",
     "test_keeps_order_of_first_occurrence",
-    "test_typed_form_matches_preregistered_tag",
+    "test_spaced_and_hyphenated_forms_become_one_tag",
     "test_empty_text_returns_empty_list",
     "test_empty_pieces_between_commas_are_dropped",
     "test_edge_whitespace_is_removed_not_hyphenated",

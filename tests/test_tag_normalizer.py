@@ -28,7 +28,7 @@ def test_keeps_order_of_first_occurrence():
     assert normalize_tags("legado, sql, Legado, java") == ["legado", "sql", "java"]
 
 
-def test_typed_form_matches_preregistered_tag():
+def test_spaced_and_hyphenated_forms_become_one_tag():
     """TC-TAG-05 | Unitário | 'Regra Negocio' e 'regra-negocio' viram a mesma tag."""
     assert normalize_tags("regra-negocio, Regra Negocio") == ["regra-negocio"]
 
@@ -58,7 +58,7 @@ def test_non_breaking_space_becomes_hyphen():
     assert normalize_tags("regra\u00a0negocio") == ["regra-negocio"]
 
 
-@pytest.mark.parametrize("raw", [None, ["sql"], 10])
+@pytest.mark.parametrize("raw", [None, ["sql"], 10], ids=["none", "list", "int"])
 def test_non_string_input_raises_type_error(raw):
     """TC-TAG-11 | Unitário | Entrada que não é str levanta TypeError."""
     with pytest.raises(TypeError):
@@ -108,5 +108,11 @@ def test_result_has_only_valid_unique_tags(raw):
 # LAC-02 "regra - negocio" -> hífens seguidos viram um só? "_" vira "-"?
 #                             Pelo cartão sai ["regra---negocio"]; "regra_negocio"
 #                             fica como está.
-# LAC-03 "C#, C++, .NET"   -> que símbolos uma tag pode ter? Uma limpeza que aceite
-#                             só letras, números e hífen junta "c#" e "c++" em "c".
+# LAC-03 "C#, C++, .NET"   -> que símbolos uma tag pode ter? Pelo cartão sai
+#                             ["c#", "c++", ".net"]. Uma limpeza que aceite só
+#                             letras, números e hífen junta "c#" e "c++" em "c".
+# LAC-04 "regra\u2003negocio" -> a lista do item 4 (espaço, tab, quebra de linha,
+#                             espaço não separável) é fechada? O código usa \s, que
+#                             também pega \r, \f e espaços Unicode como U+2003.
+#                             Hoje sai ["regra-negocio"]; com a lista fechada, o
+#                             U+2003 ficaria dentro da tag.

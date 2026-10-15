@@ -29,6 +29,24 @@ Preencher após cada execução de `pytest`. Adicionar nova seção ao topo a ca
 
 ---
 
+## Execução 5 — 2026-10-14 (revisão de Clean Code de normalize_tags)
+
+| Campo | Valor |
+|-------|-------|
+| **Data de execução** | 2026-10-14 |
+| **Versão do sistema** | v1.0.0 + `normalize_tags` (módulo ainda não chamado pelas rotas) |
+| **Branch / commit** | `main` em `339c1f6`, com os ajustes da revisão ainda sem commit; eles entram no commit que registra esta execução |
+| **Comando executado** | `./venv/Scripts/python.exe -m pytest -q -p no:cacheprovider` |
+| **Total de testes** | 107 |
+| **Passou** | 107 |
+| **Falhou** | 0 |
+| **Bloqueado / Skipped** | 0 |
+| **% Cobertura estimada** | — |
+| **Duração** | 0,92s |
+| **Observações** | Atividade de Clean Code do fórum 12 (C12, Unidade II). Registro completo em `prompts/09.01_R_Revisao_Clean_Code.md`, e critérios e pedidos em `prompts/09.01_Prompt_de_Clean_Code.md`. Ajustes só de legibilidade, sem mudança de comportamento: docstring de módulo apontando o cartão e as lacunas; comentários citando os itens do cartão e a ordem `strip()`→`sub()`; comentário do `\s` corrigido (29 caracteres, o mesmo conjunto de `str.strip()`/`str.isspace()`); `test_typed_form_matches_preregistered_tag` renomeado para `test_spaced_and_hyphenated_forms_become_one_tag`; ids `none`/`list`/`int` no TC-TAG-11; LAC-03 com a saída atual; **LAC-04 nova e aberta** (a lista de espaços em branco do item 4 do cartão é fechada?). Nenhum teste mudou de entrada ou de valor esperado.<br>Linha de base antes dos ajustes: 107 passed. Depois: `pytest tests/test_tag_normalizer.py` 41 passed; suíte 107 passed; `black --check` sem alteração nos 3 arquivos tocados; `ast.parse(..., feature_version=(3, 11))` ok no módulo e nos testes.<br>**Injeção de defeitos** (`scripts/injetar_defeitos_tag_normalizer.py`, com o nome do teste renomeado atualizado em `EXAMPLE_TESTS`; nenhum trecho de mutante mudou): sem defeito, 41 passed; D1 a D11 mortos (de 1 a 16 testes falhando cada); G1 a G4 sobrevivem, como na Execução 4; módulo restaurado byte a byte. |
+
+---
+
 ## Execução 4 — 2026-10-13 (experimento normalize_tags)
 
 | Campo | Valor |
