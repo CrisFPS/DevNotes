@@ -136,6 +136,11 @@ Os testes abaixo precisam passar para que o MVP seja considerado válido:
 | `test_list_content_page_below_one` | test_routes.py | RF-023 | Página inválida menor que 1 deve ser tratada |
 | `test_list_content_page_above_total` | test_routes.py | RF-023 | Página acima do total deve ser tratada |
 | `test_list_content_respects_page_size` | test_routes.py | RF-023 | Quantidade máxima por página deve ser preservada |
+| `test_cadastro_valido_redireciona_e_fica_pesquisavel` | test_integracao_funcional.py | RF-001, RF-004, RF-013 | Cadastro pela rota precisa aparecer na busca |
+| `test_upload_sql_integra_arquivo_classificacao_e_busca` | test_integracao_funcional.py | RF-007, RF-011, RF-017 | Upload precisa classificar, gravar e indexar |
+| `test_editar_atualiza_o_que_a_busca_encontra` | test_integracao_funcional.py | RF-002, RF-013 | Edição precisa atualizar o índice |
+| `test_excluir_remove_da_busca` | test_integracao_funcional.py | RF-003, RF-013 | Exclusão precisa limpar o índice |
+| `test_busca_com_filtros_preenchidos_monta_o_dicionario` | test_integracao_estrutural.py | RF-005, RF-019 | Filtros combinados na rota de busca |
 
 ---
 

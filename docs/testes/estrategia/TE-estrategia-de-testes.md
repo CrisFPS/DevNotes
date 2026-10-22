@@ -53,6 +53,8 @@ graph BT
 | **Rotas GET** | 5 | Usam fixture `client`. Verificam status HTTP básico. | `GET /`, `GET /content`, `GET /content/new`, `GET /search`, `GET /upload` |
 | **Rotas POST + Renderização** | 13 | Usam fixture `client`. Verificam comportamento, redirecionamento e HTML. | `POST /content/new`, `POST /upload`, `POST /search`, `<pre><code>` |
 
+A pirâmide acima registra a contagem da estratégia inicial. A suíte cresceu depois disso. A integração entre formulário, rotas, banco e índice FTS5 está em `tests/test_integracao_funcional.py` (casos TC-IFN) e `tests/test_integracao_estrutural.py` (casos TC-IES). Os casos estão em `docs/testes/casos/TC-integracao-funcional.md` e `TC-integracao-estrutural.md`. Os prompts que geraram esses casos estão em `prompts/10.01` a `prompts/10.04`.
+
 ---
 
 ## 3. Nota sobre `save_upload` (async)

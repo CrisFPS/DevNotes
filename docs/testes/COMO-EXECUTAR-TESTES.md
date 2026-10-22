@@ -32,6 +32,8 @@ tests/
 ├── test_content_service.py      # CRUD via ContentService + attach_file
 ├── test_encoding_service.py     # Leitura de arquivos com fallback de encoding
 ├── test_extension_classifier.py # Classificação de extensões (Python, SQL, PowerBuilder)
+├── test_integracao_estrutural.py # Decisões das rotas de conteúdo, upload e busca
+├── test_integracao_funcional.py # Contrato HTTP: cadastro, upload, busca e erros
 ├── test_routes.py               # Rotas GET e POST via TestClient
 ├── test_search_fts.py           # Busca FTS5 e filtros via SearchService
 └── test_upload_service.py       # Validação de extensão e tamanho de upload
@@ -72,6 +74,12 @@ tests/
 
 # Testes de classificação de extensões
 .\venv\Scripts\python.exe -m pytest tests/test_extension_classifier.py -v
+
+# Integração funcional das rotas HTTP
+.\venv\Scripts\python.exe -m pytest tests/test_integracao_funcional.py -v
+
+# Integração estrutural das rotas HTTP
+.\venv\Scripts\python.exe -m pytest tests/test_integracao_estrutural.py -v
 
 # Testes de rotas HTTP (GET e POST)
 .\venv\Scripts\python.exe -m pytest tests/test_routes.py -v

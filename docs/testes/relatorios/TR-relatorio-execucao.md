@@ -29,6 +29,24 @@ Preencher após cada execução de `pytest`. Adicionar nova seção ao topo a ca
 
 ---
 
+## Execução 6 — 2026-10-22 (testes de integração das rotas)
+
+| Campo | Valor |
+|-------|-------|
+| **Data de execução** | 2026-10-22 |
+| **Versão do sistema** | v1.0.0 |
+| **Branch / commit** | `main`, com os testes de integração ainda sem commit |
+| **Comando executado** | `./venv/Scripts/python.exe -m pytest -q -p no:cacheprovider` |
+| **Total de testes** | 134 |
+| **Passou** | 134 |
+| **Falhou** | 0 |
+| **Bloqueado / Skipped** | 0 |
+| **% Cobertura estimada** | — |
+| **Duração** | 1,43s |
+| **Observações** | 27 casos novos de integração das rotas HTTP: 13 em `tests/test_integracao_funcional.py` (TC-IFN-01 a TC-IFN-13) e 14 em `tests/test_integracao_estrutural.py` (TC-IES-01 a TC-IES-14). Os prompts estão em `prompts/10.01` a `prompts/10.04`. A primeira geração, com oráculos de API JSON, ficou em `docs/testes/casos/gerados/` e não entra na coleta do pytest. Antes desta rodada a suíte tinha 107 testes. |
+
+---
+
 ## Execução 5 — 2026-10-14 (revisão de Clean Code de normalize_tags)
 
 | Campo | Valor |

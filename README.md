@@ -247,7 +247,7 @@ make run PYTHON=.\venv\Scripts\python.exe
 ## Como rodar os testes
 
 Os testes usam SQLite in-memory; nenhum dado é gravado no banco real do projeto.
-A suíte validada possui **107 testes passando**.
+A suíte validada possui **134 testes passando**.
 
 ```powershell
 # Todos os testes
@@ -269,9 +269,9 @@ Também é possível usar:
 make test
 ```
 
-**Suíte atual validada:** 107 testes | 8 arquivos | cobertura dos módulos de
-serviço, rotas HTTP, busca FTS5, upload, encoding, classificação, exclusão e
-paginação.
+**Suíte atual validada:** 134 testes | 10 arquivos | cobertura dos módulos de
+serviço, rotas HTTP, busca FTS5, upload, encoding, classificação, exclusão,
+paginação e integração entre formulário, rotas, banco e índice.
 
 | Arquivo | Testes |
 |---|---:|
@@ -279,6 +279,8 @@ paginação.
 | `test_delete.py` | 13 |
 | `test_encoding_service.py` | 4 |
 | `test_extension_classifier.py` | 12 |
+| `test_integracao_estrutural.py` | 14 |
+| `test_integracao_funcional.py` | 13 |
 | `test_routes.py` | 18 |
 | `test_search_fts.py` | 6 |
 | `test_tag_normalizer.py` | 41 |
@@ -436,7 +438,7 @@ Evoluções coerentes com o porte do projeto:
 - Repositório remoto público verificado: `https://github.com/CrisFPS/DevNotes`.
 - Dependências fixadas em `requirements.txt`.
 - Projeto versionado como `1.0.0` em `pyproject.toml`.
-- Suíte automatizada validada com `pytest`: **66 passed**.
+- Suíte automatizada validada com `pytest`: **134 passed**.
 - Documentação técnica organizada em `docs/`.
 - Prompts do processo de desenvolvimento registrados em `prompts/`.
 
